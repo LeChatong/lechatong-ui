@@ -2,36 +2,39 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'storybook-button',
+  selector: 'lechatong-button',
   imports: [CommonModule],
   template: ` <button
     type="button"
     (click)="onClick.emit($event)"
     [ngClass]="classes"
-    [ngStyle]="{ 'background-color': backgroundColor }"
   >
     {{ label }}
   </button>`,
-  styleUrls: ['./button.css'],
+  styleUrls: ['./button.scss'],
 })
 export default class ButtonComponent {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  @Input()
-  primary = false;
-
-  /**
-   * What background color to use
-   */
-  @Input()
-  backgroundColor?: string;
 
   /**
    * How large should the button be?
    */
   @Input()
   size: 'small' | 'medium' | 'large' = 'medium';
+
+  /**
+   *  Which type of button ?
+   */
+  @Input()
+  buttonType: 'default' | 'success' | 'info' | 'danger' | 'error' = 'default';
+
+  /**
+   * Is activate or not ?
+   */
+  @Input()
+  disabled = true;
+
+  @Input()
+  useIcon = false;
 
   /**
    * Button contents
@@ -48,8 +51,6 @@ export default class ButtonComponent {
   onClick = new EventEmitter<Event>();
 
   public get classes(): string[] {
-    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';
-
-    return ['storybook-button', `storybook-button--${this.size}`, mode];
+    return ['lechatong-button', `lechatong-button--size--${this.size}`, `lechatong-button--type--${this.buttonType}`];
   }
 }
