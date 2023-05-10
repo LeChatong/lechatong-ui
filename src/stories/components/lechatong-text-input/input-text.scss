@@ -1,0 +1,34 @@
+@import '../../scss/base.scss';
+
+.lechatong-label {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    display: flex;
+    color: $lechatong-basic-01;
+    size: 16px;
+    padding-bottom: 8px;
+}
+
+.lechatong-input-text {
+    display: flex;
+    align-content: center;
+    size: 16px;
+    height: 20px;
+    min-width: 300px;
+    border-radius: 5px;
+    border: 1px;
+    padding: 4px 8px;
+
+    &--default {
+        background-color: $lechatong-basic-02;
+        border-color: $lechatong-basic-01;
+    }
+    &--success {
+        border-width: 2px;
+        border-color: $lechatong-success-primary;
+    }
+    &--info {
+        background-color: $lechatong-info-secondary;
+        border-color: $lechatong-info-primary;
+    }
+}

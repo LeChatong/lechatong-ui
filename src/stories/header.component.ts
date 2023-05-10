@@ -30,12 +30,12 @@ import type { User } from './User';
             Welcome, <b>{{ user.name }}</b
             >!
           </span>
-          <storybook-button
+          <lechatong-button
             *ngIf="user"
             size="small"
             (onClick)="onLogout.emit($event)"
             label="Log out"
-          ></storybook-button>
+          ></lechatong-button>
         </div>
         <div *ngIf="!user">
           <storybook-button

@@ -29,7 +29,7 @@
     background-color: $lechatong-success-secondary;
   }
 }
-.lechatong-button--type--danger {
+.lechatong-button--type--warning {
   background-color: $lechatong-warning-primary;
   &:hover {
     background-color: $lechatong-warning-secondary;
@@ -42,20 +42,20 @@
   }
 }
 .lechatong-button--disable {
-  color: #333;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+  background-color: $lechatong-basic-03;
+  color: $lechatong-basic-01;
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
   cursor: not-allowed;
 }
 .lechatong-button--size--small {
-  font-size: 12px;
+  font-size: $lechatong-buttong-small;
   padding: 10px 16px;
 }
 .lechatong-button--size--medium {
-  font-size: 14px;
+  font-size: $lechatong-buttong-medium;
   padding: 11px 20px;
 }
 .lechatong-button--size--large {
-  font-size: 16px;
+  font-size: $lechatong-buttong-large;
   padding: 12px 24px;
 }
