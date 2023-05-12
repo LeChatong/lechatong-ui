@@ -24,11 +24,11 @@
         border-color: $lechatong-basic-01;
     }
     &--success {
-        border-width: 2px;
+        border-style: solid;
         border-color: $lechatong-success-primary;
     }
     &--info {
-        background-color: $lechatong-info-secondary;
-        border-color: $lechatong-info-primary;
+        border-style: solid;
+        border-color: $lechatong-info-secondary;
     }
 }

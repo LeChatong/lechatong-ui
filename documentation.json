@@ -298,7 +298,7 @@
         },
         {
             "name": "InputTextComponent",
-            "id": "component-InputTextComponent-0f05347f113f2c84c34276a8dd4d9cc04c5bf076963590be2327b3ba7569276501a4852c5e22cd5776830039f56636e954408bf9c2b87b79722297bf7cc603d5",
+            "id": "component-InputTextComponent-9921c26cc9356420767429325fa6783019af33015e5edb946cd7ec261e7a6c1beb8eaae6773d62ee46e3956148072e1f42843bac1b42cf3bee980fd3f1b7484c",
             "file": "src/stories/components/lechatong-text-input/input-text.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -310,7 +310,7 @@
                 "./input-text.scss"
             ],
             "styles": [],
-            "template": " <label>\n    <span>{{this.label}}</span>\n    <input\n        [ngClass]=\"classes\"\n        [placeHolder]=\"getPlaceHolder\"\n        type=\"text\" />\n</label>",
+            "template": " <label>\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        [ngClass]=\"classes\"\n        [placeHolder]=\"getPlaceHolder\"\n        type=\"text\" />\n</label>",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -388,11 +388,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, Input } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-text',\r\n    template: ` \r\n    <label>\r\n        <span>{{this.label}}</span>\r\n        <input \r\n            [ngClass]=\"classes\"\r\n            [placeHolder]=\"getPlaceHolder\"\r\n            type=\"text\" />\r\n    </label>`,\r\n    styleUrls: ['./input-text.scss']\r\n})\r\nexport default class InputTextComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Saisir le texte';\r\n\r\n  @Input()\r\n  message = 'message';\r\n\r\n  public get classes(): string[] {\r\n    return ['lechatong-button']\r\n  }\r\n\r\n  public get getPlaceHolder(): string {\r\n    return this.placeHolder\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, Input } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-text',\r\n    template: ` \r\n    <label>\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input \r\n            [ngClass]=\"classes\"\r\n            [placeHolder]=\"getPlaceHolder\"\r\n            type=\"text\" />\r\n    </label>`,\r\n    styleUrls: ['./input-text.scss']\r\n})\r\nexport default class InputTextComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Saisir le texte';\r\n\r\n  @Input()\r\n  message = 'message';\r\n\r\n  public get classes(): string[] {\r\n    return [\r\n        'lechatong-input-text',\r\n        this.disabled ? 'lechatong-input-text--disable' : `lechatong-input-text--${this.inputType}`,\r\n    ]\r\n  }\r\n\r\n  public get getPlaceHolder(): string {\r\n    return `${this.placeHolder}`\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../scss/base.scss';\r\n.lechatong-button {\r\n    display: flex;\r\n    align-content: center;\r\n    height: 20px;\r\n    border-radius: 5px;\r\n    border: 1px;\r\n    padding: 8px 16px;\r\n    background-color: $lechatong-basic-02;\r\n}",
+                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong-label {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n    font-weight: 700;\r\n    display: flex;\r\n    color: $lechatong-basic-01;\r\n    size: 16px;\r\n    padding-bottom: 8px;\r\n}\r\n\r\n.lechatong-input-text {\r\n    display: flex;\r\n    align-content: center;\r\n    size: 16px;\r\n    height: 20px;\r\n    min-width: 300px;\r\n    border-radius: 5px;\r\n    border: 1px;\r\n    padding: 4px 8px;\r\n\r\n    &--default {\r\n        background-color: $lechatong-basic-02;\r\n        border-color: $lechatong-basic-01;\r\n    }\r\n    &--success {\r\n        border-width: 2px;\r\n        border-color: $lechatong-success-primary;\r\n    }\r\n    &--info {\r\n        background-color: $lechatong-info-secondary;\r\n        border-color: $lechatong-info-primary;\r\n    }\r\n}",
                     "styleUrl": "./input-text.scss"
                 }
             ],
@@ -413,7 +413,7 @@
                         "name": "getPlaceHolder",
                         "type": "string",
                         "returnType": "string",
-                        "line": 43
+                        "line": 46
                     }
                 }
             }
@@ -605,7 +605,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      label: 'default'\r\n    }\r\n  }"
+                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
             },
             {
                 "name": "Large",
@@ -818,7 +818,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      label: 'default'\r\n    }\r\n  }"
+                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
                 },
                 {
                     "name": "meta",
