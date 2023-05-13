@@ -298,7 +298,7 @@
         },
         {
             "name": "InputTextComponent",
-            "id": "component-InputTextComponent-9921c26cc9356420767429325fa6783019af33015e5edb946cd7ec261e7a6c1beb8eaae6773d62ee46e3956148072e1f42843bac1b42cf3bee980fd3f1b7484c",
+            "id": "component-InputTextComponent-588dffdafb89ade7dcf242fa15d746b56ca258bdbcfbc9a2d2789f222ce8176e58648b055bac047a470738eb77b8c4af7d119ad043b23056740412108a5bf063",
             "file": "src/stories/components/lechatong-text-input/input-text.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -310,7 +310,7 @@
                 "./input-text.scss"
             ],
             "styles": [],
-            "template": " <label>\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        [ngClass]=\"classes\"\n        [placeHolder]=\"getPlaceHolder\"\n        type=\"text\" />\n</label>",
+            "template": " <label>\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        placeholder=\"{{this.placeHolder}}\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        type=\"text\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -319,7 +319,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 28,
+                    "line": 35,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -328,7 +328,7 @@
                     "defaultValue": "'default'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 31,
+                    "line": 38,
                     "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\"",
                     "decorators": []
                 },
@@ -337,7 +337,7 @@
                     "defaultValue": "'Label'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 26,
                     "type": "string",
                     "decorators": []
                 },
@@ -346,16 +346,16 @@
                     "defaultValue": "25",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22,
+                    "line": 29,
                     "type": "number",
                     "decorators": []
                 },
                 {
                     "name": "message",
-                    "defaultValue": "'message'",
+                    "defaultValue": "'(*) Simple message text'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 37,
+                    "line": 44,
                     "type": "string",
                     "decorators": []
                 },
@@ -364,16 +364,16 @@
                     "defaultValue": "0",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 25,
+                    "line": 32,
                     "type": "number",
                     "decorators": []
                 },
                 {
                     "name": "placeHolder",
-                    "defaultValue": "'Saisir le texte'",
+                    "defaultValue": "'Write anything...'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 34,
+                    "line": 41,
                     "type": "string",
                     "decorators": []
                 }
@@ -388,32 +388,32 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, Input } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-text',\r\n    template: ` \r\n    <label>\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input \r\n            [ngClass]=\"classes\"\r\n            [placeHolder]=\"getPlaceHolder\"\r\n            type=\"text\" />\r\n    </label>`,\r\n    styleUrls: ['./input-text.scss']\r\n})\r\nexport default class InputTextComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Saisir le texte';\r\n\r\n  @Input()\r\n  message = 'message';\r\n\r\n  public get classes(): string[] {\r\n    return [\r\n        'lechatong-input-text',\r\n        this.disabled ? 'lechatong-input-text--disable' : `lechatong-input-text--${this.inputType}`,\r\n    ]\r\n  }\r\n\r\n  public get getPlaceHolder(): string {\r\n    return `${this.placeHolder}`\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, Input } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-text',\r\n    imports: [CommonModule],\r\n    template: ` \r\n    <label>\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input \r\n            placeholder=\"{{this.placeHolder}}\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            type=\"text\" />\r\n            <span \r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>`,\r\n    styleUrls: ['./input-text.scss']\r\n})\r\nexport default class InputTextComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-text',\r\n        `lechatong-input-text--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-text--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong-label {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n    font-weight: 700;\r\n    display: flex;\r\n    color: $lechatong-basic-01;\r\n    size: 16px;\r\n    padding-bottom: 8px;\r\n}\r\n\r\n.lechatong-input-text {\r\n    display: flex;\r\n    align-content: center;\r\n    size: 16px;\r\n    height: 20px;\r\n    min-width: 300px;\r\n    border-radius: 5px;\r\n    border: 1px;\r\n    padding: 4px 8px;\r\n\r\n    &--default {\r\n        background-color: $lechatong-basic-02;\r\n        border-color: $lechatong-basic-01;\r\n    }\r\n    &--success {\r\n        border-width: 2px;\r\n        border-color: $lechatong-success-primary;\r\n    }\r\n    &--info {\r\n        background-color: $lechatong-info-secondary;\r\n        border-color: $lechatong-info-primary;\r\n    }\r\n}",
+                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n\r\n    &-label {\r\n        font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-text {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 16px;\r\n        height: 20px;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n    \r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}",
                     "styleUrl": "./input-text.scss"
                 }
             ],
             "stylesData": "",
             "accessors": {
-                "classes": {
-                    "name": "classes",
+                "inputClasses": {
+                    "name": "inputClasses",
                     "getSignature": {
-                        "name": "classes",
+                        "name": "inputClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 39
+                        "line": 46
                     }
                 },
-                "getPlaceHolder": {
-                    "name": "getPlaceHolder",
+                "messageClasses": {
+                    "name": "messageClasses",
                     "getSignature": {
-                        "name": "getPlaceHolder",
-                        "type": "string",
-                        "returnType": "string",
-                        "line": 46
+                        "name": "messageClasses",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 54
                     }
                 }
             }

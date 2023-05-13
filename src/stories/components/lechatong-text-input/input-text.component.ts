@@ -3,14 +3,24 @@ import { Component, Input } from "@angular/core";
 
 @Component({
     selector: 'lechatong-input-text',
+    imports: [CommonModule],
     template: ` 
-    <label>
+    <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <input 
-            [ngClass]="classes"
-            [placeHolder]="getPlaceHolder"
-            type="text" />
-    </label>`,
+            type="text"
+            placeholder="{{this.placeHolder}}"
+            maxlength="{{this.maxLenght}}"
+            minlength="{{this.minLenght}}"
+            [ngClass]="inputClasses"
+            [disabled]="this.disabled" />
+            <span 
+              ng-if="{{this.message}}"
+              [ngClass]="messageClasses">
+              {{this.message}}
+            </span>
+    </label>
+    `,
     styleUrls: ['./input-text.scss']
 })
 export default class InputTextComponent {
@@ -31,19 +41,23 @@ export default class InputTextComponent {
   inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';
 
   @Input()
-  placeHolder = 'Saisir le texte';
+  placeHolder = 'Write anything...';
 
   @Input()
-  message = 'message';
+  message = '(*) Simple message text';
 
-  public get classes(): string[] {
+  public get inputClasses(): string[] {
     return [
         'lechatong-input-text',
-        this.disabled ? 'lechatong-input-text--disable' : `lechatong-input-text--${this.inputType}`,
+        `lechatong-input-text--${this.inputType}`,
+        this.disabled ? 'lechatong-input-text--disable' : '',
     ]
   }
 
-  public get getPlaceHolder(): string {
-    return `${this.placeHolder}`
+  public get messageClasses(): string[] {
+    return [
+        'lechatong-message',
+        `lechatong-message--${this.inputType}`,
+    ]
   }
 }
