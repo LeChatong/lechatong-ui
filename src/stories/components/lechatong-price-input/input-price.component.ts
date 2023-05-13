@@ -2,12 +2,12 @@ import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-    selector: 'lechatong-input-text',
+    selector: 'lechatong-input-price',
     imports: [CommonModule],
-    template: ` 
+    template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
-        <input 
+        <input
             type="text"
             placeholder="{{this.placeHolder}}"
             maxlength="{{this.maxLenght}}"
@@ -17,16 +17,16 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             (submit)="onSubmit.emit($event)" />
-            <span 
+            <span
               ng-if="{{this.message}}"
               [ngClass]="messageClasses">
               {{this.message}}
             </span>
     </label>
     `,
-    styleUrls: ['./input-text.scss']
+    styleUrls: ['./input-price.scss']
 })
-export default class InputTextComponent {
+export default class InputPriceComponent {
 
   @Input()
   label = 'Label';
@@ -60,9 +60,9 @@ export default class InputTextComponent {
 
   public get inputClasses(): string[] {
     return [
-        'lechatong-input-text',
-        `lechatong-input-text--${this.inputType}`,
-        this.disabled ? 'lechatong-input-text--disable' : '',
+        'lechatong-input-price',
+        `lechatong-input-price--${this.inputType}`,
+        this.disabled ? 'lechatong-input-price--disable' : '',
     ]
   }
 

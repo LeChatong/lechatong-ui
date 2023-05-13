@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-    selector: 'lechatong-input-text',
+    selector: 'lechatong-input-number',
     imports: [CommonModule],
     template: ` 
     <label class="lechatong">
@@ -24,9 +24,9 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
             </span>
     </label>
     `,
-    styleUrls: ['./input-text.scss']
+    styleUrls: ['./input-number.scss']
 })
-export default class InputTextComponent {
+export default class InputDateComponent {
 
   @Input()
   label = 'Label';
@@ -60,9 +60,9 @@ export default class InputTextComponent {
 
   public get inputClasses(): string[] {
     return [
-        'lechatong-input-text',
-        `lechatong-input-text--${this.inputType}`,
-        this.disabled ? 'lechatong-input-text--disable' : '',
+        'lechatong-input-number',
+        `lechatong-input-number--${this.inputType}`,
+        this.disabled ? 'lechatong-input-number--disable' : '',
     ]
   }
 

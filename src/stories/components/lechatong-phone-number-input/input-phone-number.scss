@@ -1,0 +1,68 @@
+@import '../../scss/base.scss';
+
+.lechatong {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+    &-label {
+        font-weight: 700;
+        display: flex;
+        color: $lechatong-basic-01;
+        size: 16px;
+    }
+
+    &-input-phone-number {
+        display: flex;
+        align-content: center;
+        size: 16px;
+        height: 20px;
+        min-width: 300px;
+        border-radius: 5px;
+        border: 1px;
+        padding: 4px 8px;
+        margin: 8px 0 6px 0;
+        border-style: solid;
+        background-color: $lechatong-basic-02;
+    
+        &--default {
+            border-color: $lechatong-default-primary;
+        }
+        &--success {
+            border-color: $lechatong-success-primary;
+        }
+        &--info {
+            border-color: $lechatong-info-secondary;
+        }
+        &--warning {
+            border-color: $lechatong-warning-secondary;
+        }
+        &--error {
+            border-color: $lechatong-error-secondary;
+        }
+        &--disable {
+            cursor: not-allowed;
+            background-color: $lechatong-default-secondary;
+        }
+    }
+
+    &-message {
+        display: flex;
+        size: 12px;
+        height: 14px;
+
+        &--default {
+            color: $lechatong-default-primary;
+        }
+        &--success {
+            color: $lechatong-success-primary;
+        }
+        &--info {
+            color: $lechatong-info-secondary;
+        }
+        &--warning {
+            color: $lechatong-warning-secondary;
+        }
+        &--error {
+            color: $lechatong-error-secondary;
+        }
+    }
+}
