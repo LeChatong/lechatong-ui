@@ -8,10 +8,9 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <input 
-            type="text"
+            type="number"
             placeholder="{{this.placeHolder}}"
-            maxlength="{{this.maxLenght}}"
-            minlength="{{this.minLenght}}"
+            [value]="this.modelValue"
             [ngClass]="inputClasses"
             [disabled]="this.disabled"
             (focus)="onFocus.emit($event)"
@@ -32,10 +31,13 @@ export default class InputDateComponent {
   label = 'Label';
 
   @Input()
-  maxLenght: number = 25;
+  modelValue: number = 0
 
   @Input()
-  minLenght: number = 0;
+  max: number = 25;
+
+  @Input()
+  min: number = 0;
 
   @Input()
   disabled: boolean = false;
@@ -44,7 +46,7 @@ export default class InputDateComponent {
   inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';
 
   @Input()
-  placeHolder = 'Write anything...';
+  placeHolder = '0';
 
   @Input()
   message = '(*) Simple message text';
