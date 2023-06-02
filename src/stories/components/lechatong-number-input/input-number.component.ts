@@ -1,22 +1,25 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Message } from "src/stories/utils/message.const";
 
 @Component({
     selector: 'lechatong-input-number',
     imports: [CommonModule],
-    template: ` 
+    template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
-        <input 
+        <input
             type="number"
             placeholder="{{this.placeHolder}}"
+            inputmode="numeric"
             [value]="this.modelValue"
             [ngClass]="inputClasses"
             [disabled]="this.disabled"
+            (input)="inputHandler($event)"
             (focus)="onFocus.emit($event)"
-            (blur)="onBlur.emit($event)"
+            (blur)="blurHandler($event)"
             (submit)="onSubmit.emit($event)" />
-            <span 
+            <span
               ng-if="{{this.message}}"
               [ngClass]="messageClasses">
               {{this.message}}
@@ -31,13 +34,13 @@ export default class InputDateComponent {
   label = 'Label';
 
   @Input()
-  modelValue: number = 0
+  modelValue?: number = 50
 
   @Input()
-  max: number = 25;
+  max?: number = 1000
 
   @Input()
-  min: number = 0;
+  min?: number = 0
 
   @Input()
   disabled: boolean = false;
@@ -46,7 +49,7 @@ export default class InputDateComponent {
   inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';
 
   @Input()
-  placeHolder = '0';
+  placeHolder = 'Write a number';
 
   @Input()
   message = '(*) Simple message text';
@@ -55,10 +58,34 @@ export default class InputDateComponent {
   onFocus = new EventEmitter<Event>();
 
   @Output()
-  onBlur = new EventEmitter<Event>();
-
-  @Output()
   onSubmit = new EventEmitter<Event>();
+
+  inputHandler(e: Event): void {
+    // let inputValue = (e.target as HTMLInputElement).value
+  }
+
+  blurHandler(e: Event): void {
+    let inputValue = parseInt((e.target as HTMLInputElement).value)
+    console.log(inputValue)
+    console.log(this.min)
+    console.log(this.max)
+    if(!inputValue){
+      this.defineInput('error', Message.IS_EMPTY)
+    }
+    if(this.min && inputValue < this.min){
+      console.log('greather')
+      this.defineInput('error', Message.GREATER_THAN + this.min)
+    }
+    if(this.max && inputValue > this.max){
+      console.log('less')
+      this.defineInput('error', Message.LESS_THAN + this.max)
+    }
+  }
+
+  defineInput(type: any, msg: string): void{
+    this.inputType = type
+    this.message = msg
+  }
 
   public get inputClasses(): string[] {
     return [
