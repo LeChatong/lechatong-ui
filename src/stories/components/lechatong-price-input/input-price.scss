@@ -23,6 +23,10 @@
         border-style: solid;
         background-color: $lechatong-basic-02;
 
+        & span {
+          margin: 0 1rem;
+        }
+
         &--default {
             border-color: $lechatong-default-primary;
         }

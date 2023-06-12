@@ -298,7 +298,7 @@
         },
         {
             "name": "InputContryComponent",
-            "id": "component-InputContryComponent-063f3d7e80024f991c0b81af148421f7659ac6042a3db7dc96bcc8adba700d94af9508ee1fae66fdf399a6e0d147d8ac2d50354c5e3b8567f33ca2ff701c1588",
+            "id": "component-InputContryComponent-dd46c62fdec48765f3b96506ac5344948ae7f158436f406cfb10480c0e089f127258de19a927176c7fcc7d5c4362a9054fce5fc6227ce3a902f922466f3d4fc4",
             "file": "src/stories/components/lechatong-country-input/input-country.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -310,7 +310,7 @@
                 "./input-country.scss"
             ],
             "styles": [],
-            "template": " <label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"text\"\n        placeholder=\"{{this.placeHolder}}\"\n        maxlength=\"{{this.maxLenght}}\"\n        minlength=\"{{this.minLenght}}\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"onBlur.emit($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"text\"\n        placeholder=\"{{this.placeHolder}}\"\n        maxlength=\"{{this.maxLenght}}\"\n        minlength=\"{{this.minLenght}}\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"onBlur.emit($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -319,7 +319,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 41,
+                    "line": 42,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -328,7 +328,7 @@
                     "defaultValue": "'default'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 44,
+                    "line": 45,
                     "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\"",
                     "decorators": []
                 },
@@ -337,7 +337,7 @@
                     "defaultValue": "'Label'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 32,
+                    "line": 33,
                     "type": "string",
                     "decorators": []
                 },
@@ -346,7 +346,7 @@
                     "defaultValue": "25",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 35,
+                    "line": 36,
                     "type": "number",
                     "decorators": []
                 },
@@ -355,7 +355,7 @@
                     "defaultValue": "'(*) Simple message text'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 50,
+                    "line": 51,
                     "type": "string",
                     "decorators": []
                 },
@@ -364,7 +364,7 @@
                     "defaultValue": "0",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 38,
+                    "line": 39,
                     "type": "number",
                     "decorators": []
                 },
@@ -373,7 +373,7 @@
                     "defaultValue": "'Write anything...'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 47,
+                    "line": 48,
                     "type": "string",
                     "decorators": []
                 }
@@ -384,7 +384,7 @@
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 56,
+                    "line": 57,
                     "type": "EventEmitter"
                 },
                 {
@@ -392,7 +392,7 @@
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 53,
+                    "line": 54,
                     "type": "EventEmitter"
                 },
                 {
@@ -400,7 +400,7 @@
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 59,
+                    "line": 60,
                     "type": "EventEmitter"
                 }
             ],
@@ -413,7 +413,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-country-text',\r\n    imports: [CommonModule],\r\n    template: ` \r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input \r\n            type=\"text\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            maxlength=\"{{this.maxLenght}}\"\r\n            minlength=\"{{this.minLenght}}\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"onBlur.emit($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span \r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-country.scss']\r\n})\r\nexport default class InputContryComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-country',\r\n        `lechatong-input-country--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-country--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-country-text',\r\n    imports: [CommonModule],\r\n    standalone: true,\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            type=\"text\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            maxlength=\"{{this.maxLenght}}\"\r\n            minlength=\"{{this.minLenght}}\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"onBlur.emit($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-country.scss']\r\n})\r\nexport default class InputContryComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-country',\r\n        `lechatong-input-country--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-country--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -429,7 +429,7 @@
                         "name": "inputClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 61
+                        "line": 62
                     }
                 },
                 "messageClasses": {
@@ -438,262 +438,14 @@
                         "name": "messageClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 69
+                        "line": 70
                     }
                 }
             }
         },
         {
             "name": "InputDateComponent",
-            "id": "component-InputDateComponent-8f51b3316858338391fc2cac87d48e09537f934edd04ccf7fbe4d0f3b6d6cd51c04b2599d3ed215374a52b5dad294ef164f1b18841f6186e5a351ce0660b29d6",
-            "file": "src/stories/components/lechatong-number-input/input-number.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "lechatong-input-number",
-            "styleUrls": [
-                "./input-number.scss"
-            ],
-            "styles": [],
-            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"number\"\n        placeholder=\"{{this.placeHolder}}\"\n        inputmode=\"numeric\"\n        [value]=\"this.modelValue\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (input)=\"inputHandler($event)\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"blurHandler($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
-            "templateUrl": [],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "disabled",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 46,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "inputType",
-                    "defaultValue": "'default'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 49,
-                    "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\"",
-                    "decorators": []
-                },
-                {
-                    "name": "label",
-                    "defaultValue": "'Label'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 34,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "max",
-                    "defaultValue": "1000",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 40,
-                    "type": "number",
-                    "decorators": []
-                },
-                {
-                    "name": "message",
-                    "defaultValue": "'(*) Simple message text'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 55,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "min",
-                    "defaultValue": "0",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 43,
-                    "type": "number",
-                    "decorators": []
-                },
-                {
-                    "name": "modelValue",
-                    "defaultValue": "50",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 37,
-                    "type": "number",
-                    "decorators": []
-                },
-                {
-                    "name": "placeHolder",
-                    "defaultValue": "'Write a number'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 52,
-                    "type": "string",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [
-                {
-                    "name": "onFocus",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 58,
-                    "type": "EventEmitter"
-                },
-                {
-                    "name": "onSubmit",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 61,
-                    "type": "EventEmitter"
-                }
-            ],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "blurHandler",
-                    "args": [
-                        {
-                            "name": "e",
-                            "type": "Event",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 67,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "e",
-                            "type": "Event",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "defineInput",
-                    "args": [
-                        {
-                            "name": "type",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        },
-                        {
-                            "name": "msg",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 85,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "type",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "msg",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "inputHandler",
-                    "args": [
-                        {
-                            "name": "e",
-                            "type": "Event",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 63,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "e",
-                            "type": "Event",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { Message } from \"src/stories/utils/message.const\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-number',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            type=\"number\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            inputmode=\"numeric\"\r\n            [value]=\"this.modelValue\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (input)=\"inputHandler($event)\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"blurHandler($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-number.scss']\r\n})\r\nexport default class InputDateComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max?: number = 1000\r\n\r\n  @Input()\r\n  min?: number = 0\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write a number';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  inputHandler(e: Event): void {\r\n    // let inputValue = (e.target as HTMLInputElement).value\r\n  }\r\n\r\n  blurHandler(e: Event): void {\r\n    let inputValue = parseInt((e.target as HTMLInputElement).value)\r\n    console.log(inputValue)\r\n    console.log(this.min)\r\n    console.log(this.max)\r\n    if(!inputValue){\r\n      this.defineInput('error', Message.IS_EMPTY)\r\n    }\r\n    if(this.min && inputValue < this.min){\r\n      console.log('greather')\r\n      this.defineInput('error', Message.GREATER_THAN + this.min)\r\n    }\r\n    if(this.max && inputValue > this.max){\r\n      console.log('less')\r\n      this.defineInput('error', Message.LESS_THAN + this.max)\r\n    }\r\n  }\r\n\r\n  defineInput(type: any, msg: string): void{\r\n    this.inputType = type\r\n    this.message = msg\r\n  }\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-number',\r\n        `lechatong-input-number--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-number--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n    \r\n    &-label {\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-number {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 16px;\r\n        height: 20px;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n    \r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}",
-                    "styleUrl": "./input-number.scss"
-                }
-            ],
-            "stylesData": "",
-            "accessors": {
-                "inputClasses": {
-                    "name": "inputClasses",
-                    "getSignature": {
-                        "name": "inputClasses",
-                        "type": "[]",
-                        "returnType": "string[]",
-                        "line": 90
-                    }
-                },
-                "messageClasses": {
-                    "name": "messageClasses",
-                    "getSignature": {
-                        "name": "messageClasses",
-                        "type": "[]",
-                        "returnType": "string[]",
-                        "line": 98
-                    }
-                }
-            }
-        },
-        {
-            "name": "InputDateComponent",
-            "id": "component-InputDateComponent-ef3e4fb02b2683909db57ec90456afbab70dac8909720cfb715306f698bf5c4e1867c8eaa6712228b08927c1b895cbe6fe4851385c52742c80196e34cef385d2-1",
+            "id": "component-InputDateComponent-ef3e4fb02b2683909db57ec90456afbab70dac8909720cfb715306f698bf5c4e1867c8eaa6712228b08927c1b895cbe6fe4851385c52742c80196e34cef385d2",
             "file": "src/stories/components/lechatong-date-input/input-date.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -836,10 +588,255 @@
                         "line": 69
                     }
                 }
-            },
-            "isDuplicate": true,
-            "duplicateId": 1,
-            "duplicateName": "InputDateComponent-1"
+            }
+        },
+        {
+            "name": "InputNumberComponent",
+            "id": "component-InputNumberComponent-91edaf7061a3fc99da3545140d35b0b3fbba42f80cc8d934ded94d8d0c5996c3cd309ede54d0a327755c6973fce81aa7fd8907b77db59d1c3e38821b561dc12e",
+            "file": "src/stories/components/lechatong-number-input/input-number.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "lechatong-input-number",
+            "styleUrls": [
+                "./input-number.scss"
+            ],
+            "styles": [],
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"number\"\n        placeholder=\"{{this.placeHolder}}\"\n        inputmode=\"numeric\"\n        [value]=\"this.modelValue\"\n        [ngClass]=\"inputClasses\"\n        [max]=\"max\"\n        [min]=\"min\"\n        [disabled]=\"this.disabled\"\n        (input)=\"inputHandler($event)\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"blurHandler($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 48,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "inputType",
+                    "defaultValue": "'default'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 51,
+                    "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\"",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Label'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 36,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "max",
+                    "defaultValue": "1000",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 42,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "message",
+                    "defaultValue": "'(*) Simple message text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 57,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "min",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 45,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "modelValue",
+                    "defaultValue": "50",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 39,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "placeHolder",
+                    "defaultValue": "'Write a number'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 54,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onFocus",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 60,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onSubmit",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 63,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "blurHandler",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 69,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "defineInput",
+                    "args": [
+                        {
+                            "name": "type",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "msg",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 84,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "type",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "msg",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "inputHandler",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 65,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { Message } from \"src/stories/utils/message.const\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-number',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            type=\"number\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            inputmode=\"numeric\"\r\n            [value]=\"this.modelValue\"\r\n            [ngClass]=\"inputClasses\"\r\n            [max]=\"max\"\r\n            [min]=\"min\"\r\n            [disabled]=\"this.disabled\"\r\n            (input)=\"inputHandler($event)\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"blurHandler($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-number.scss']\r\n})\r\nexport default class InputNumberComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max?: number = 1000\r\n\r\n  @Input()\r\n  min?: number = 0\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write a number';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  inputHandler(e: Event): void {\r\n    // let inputValue = (e.target as HTMLInputElement).value\r\n  }\r\n\r\n  blurHandler(e: Event): void {\r\n    let inputValue = parseInt((e.target as HTMLInputElement).value)\r\n    if(!inputValue){\r\n      this.defineInput('error', Message.IS_EMPTY)\r\n    }\r\n    if(this.min && inputValue < this.min){\r\n      console.log('greather')\r\n      this.defineInput('error', Message.GREATER_THAN + this.min)\r\n    }\r\n    if(this.max && inputValue > this.max){\r\n      console.log('less')\r\n      this.defineInput('error', Message.LESS_THAN + this.max)\r\n    }\r\n  }\r\n\r\n  defineInput(type: any, msg: string): void{\r\n    this.inputType = type\r\n    this.message = msg\r\n  }\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-number',\r\n        `lechatong-input-number--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-number--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n    \r\n    &-label {\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-number {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 16px;\r\n        height: 20px;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n    \r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}",
+                    "styleUrl": "./input-number.scss"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "inputClasses": {
+                    "name": "inputClasses",
+                    "getSignature": {
+                        "name": "inputClasses",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 89
+                    }
+                },
+                "messageClasses": {
+                    "name": "messageClasses",
+                    "getSignature": {
+                        "name": "messageClasses",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 97
+                    }
+                }
+            }
         },
         {
             "name": "InputPhoneNumberComponent",
@@ -990,7 +987,7 @@
         },
         {
             "name": "InputPriceComponent",
-            "id": "component-InputPriceComponent-1a0b38f9f9e34cee2df7a98cc82973a1900f50ec79df2f012e88d68ef29c9b977c2ba278ad13dfcf6f59287407bde6bdf15979bd200f94becd0d0e035537dc1b",
+            "id": "component-InputPriceComponent-52b062c1ceb251df231b0fbc6b63e9558a3a15a4b3de1f414365f407d649fc266d48b3bd4ad6f39840cf3263a7313146fe4c651de5dda2668e5d3249e620d911",
             "file": "src/stories/components/lechatong-price-input/input-price.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1002,7 +999,7 @@
                 "./input-price.scss"
             ],
             "styles": [],
-            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"text\"\n        placeholder=\"{{this.placeHolder}}\"\n        maxlength=\"{{this.maxLenght}}\"\n        minlength=\"{{this.minLenght}}\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"onBlur.emit($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <div [ngClass]=\"inputClasses\">\n      <span>$</span>\n      <input\n          type=\"float\"\n          placeholder=\"{{this.placeHolder}}\"\n          [value]=\"this.modelValue | currency :'USD'\"\n          [disabled]=\"this.disabled\"\n          (focus)=\"onFocus.emit($event)\"\n          (blur)=\"onBlur.emit($event)\"\n          (submit)=\"onSubmit.emit($event)\" />\n      <span>USD</span>\n    </div>\n\n    <span\n      ng-if=\"{{this.message}}\"\n      [ngClass]=\"messageClasses\">\n      {{this.message}}\n    </span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -1011,7 +1008,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 41,
+                    "line": 47,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -1020,7 +1017,7 @@
                     "defaultValue": "'default'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 44,
+                    "line": 50,
                     "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\"",
                     "decorators": []
                 },
@@ -1029,16 +1026,16 @@
                     "defaultValue": "'Label'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 32,
+                    "line": 35,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "maxLenght",
+                    "name": "max",
                     "defaultValue": "25",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 35,
+                    "line": 41,
                     "type": "number",
                     "decorators": []
                 },
@@ -1047,13 +1044,22 @@
                     "defaultValue": "'(*) Simple message text'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 50,
+                    "line": 56,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "minLenght",
+                    "name": "min",
                     "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 44,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "modelValue",
+                    "defaultValue": "50",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 38,
@@ -1065,7 +1071,7 @@
                     "defaultValue": "'Write anything...'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 47,
+                    "line": 53,
                     "type": "string",
                     "decorators": []
                 }
@@ -1076,7 +1082,7 @@
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 56,
+                    "line": 62,
                     "type": "EventEmitter"
                 },
                 {
@@ -1084,7 +1090,7 @@
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 53,
+                    "line": 59,
                     "type": "EventEmitter"
                 },
                 {
@@ -1092,7 +1098,7 @@
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 59,
+                    "line": 65,
                     "type": "EventEmitter"
                 }
             ],
@@ -1105,11 +1111,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-price',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            type=\"text\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            maxlength=\"{{this.maxLenght}}\"\r\n            minlength=\"{{this.minLenght}}\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"onBlur.emit($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-price.scss']\r\n})\r\nexport default class InputPriceComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-price',\r\n        `lechatong-input-price--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-price--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-price',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <div [ngClass]=\"inputClasses\">\r\n          <span>$</span>\r\n          <input\r\n              type=\"float\"\r\n              placeholder=\"{{this.placeHolder}}\"\r\n              [value]=\"this.modelValue | currency :'USD'\"\r\n              [disabled]=\"this.disabled\"\r\n              (focus)=\"onFocus.emit($event)\"\r\n              (blur)=\"onBlur.emit($event)\"\r\n              (submit)=\"onSubmit.emit($event)\" />\r\n          <span>USD</span>\r\n        </div>\r\n\r\n        <span\r\n          ng-if=\"{{this.message}}\"\r\n          [ngClass]=\"messageClasses\">\r\n          {{this.message}}\r\n        </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-price.scss']\r\n})\r\nexport default class InputPriceComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max: number = 25;\r\n\r\n  @Input()\r\n  min: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-price',\r\n        `lechatong-input-price--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-price--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n\r\n    &-label {\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-price {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 16px;\r\n        height: 20px;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n\r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}\r\n",
+                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n\r\n    &-label {\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-price {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 16px;\r\n        height: 20px;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n\r\n        & span {\r\n          margin: 0 1rem;\r\n        }\r\n\r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}\r\n",
                     "styleUrl": "./input-price.scss"
                 }
             ],
@@ -1121,7 +1127,7 @@
                         "name": "inputClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 61
+                        "line": 67
                     }
                 },
                 "messageClasses": {
@@ -1130,7 +1136,7 @@
                         "name": "messageClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 69
+                        "line": 75
                     }
                 }
             }
@@ -1284,7 +1290,7 @@
         },
         {
             "name": "InputTextComponent",
-            "id": "component-InputTextComponent-40c3a06c0129f4f21863058d26ad4b7e4eaf57a39be3ac767239e695821fcb0c30e45080a53a2a5ed762f56f9ac90dda5a0df11cd2ef0fe91027e900f2c67c5b",
+            "id": "component-InputTextComponent-acf926ca9646228ef4f429973eb4237ce4b2fc9ba0639a10d083338803f9ada7ebfacb38d7545d57a48a5bac01d1aeb59bdf0226a814b428ecf85734b7a9d8c8",
             "file": "src/stories/components/lechatong-text-input/input-text.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1296,7 +1302,7 @@
                 "./input-text.scss"
             ],
             "styles": [],
-            "template": " <label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"text\"\n        placeholder=\"{{this.placeHolder}}\"\n        maxlength=\"{{this.maxLenght}}\"\n        minlength=\"{{this.minLenght}}\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"onBlur.emit($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"text\"\n        placeholder=\"{{this.placeHolder}}\"\n        [maxlength]=\"maxLenght\"\n        [minlength]=\"minLenght\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"onBlur.emit($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -1399,7 +1405,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-text',\r\n    imports: [CommonModule],\r\n    template: ` \r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input \r\n            type=\"text\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            maxlength=\"{{this.maxLenght}}\"\r\n            minlength=\"{{this.minLenght}}\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"onBlur.emit($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span \r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-text.scss']\r\n})\r\nexport default class InputTextComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-text',\r\n        `lechatong-input-text--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-text--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-text',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            type=\"text\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            [maxlength]=\"maxLenght\"\r\n            [minlength]=\"minLenght\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"onBlur.emit($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-text.scss']\r\n})\r\nexport default class InputTextComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-text',\r\n        `lechatong-input-text--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-text--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1622,16 +1628,6 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-            },
-            {
-                "name": "Label",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1652,6 +1648,26 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+            },
+            {
+                "name": "Label",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+            },
+            {
+                "name": "Label",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/lechatong-price-input/input-price.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1663,16 +1679,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-            },
-            {
-                "name": "Label",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -1772,16 +1778,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<InputNumber>",
-                "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1802,6 +1798,26 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<InputText>",
+                "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<InputNumber>",
+                "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/lechatong-price-input/input-price.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1817,16 +1833,6 @@
                 "deprecationMessage": "",
                 "type": "Meta<InputSelect>",
                 "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<InputText>",
-                "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
             },
             {
                 "name": "preview",
@@ -1899,17 +1905,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<InputNumber>",
-                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<InputDate>",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
@@ -1923,6 +1918,28 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<InputPhoneNumber>",
                 "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<InputText>",
+                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<InputNumber>",
+                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -1949,17 +1966,6 @@
                 "deprecationMessage": "",
                 "description": "",
                 "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<InputText>",
-                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
             }
         ],
         "enumerations": [
@@ -1976,13 +1982,13 @@
                         "name": "GREATER_THAN",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "value": "The value entered must be greater than {}"
+                        "value": "The value entered must be greater than "
                     },
                     {
                         "name": "LESS_THAN",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "value": "The value entered must be less than {}"
+                        "value": "The value entered must be less than "
                     }
                 ],
                 "ctype": "miscellaneous",
@@ -2058,28 +2064,6 @@
                     "defaultValue": "{\r\n    title: 'Example/CountryInput',\r\n    component: CountryInput,\r\n    tags: ['autodocs'],\r\n    render: (args: CountryInput) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
-            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
-                {
-                    "name": "Label",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<InputNumber>",
-                    "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-                }
-            ],
             "src/stories/components/lechatong-date-input/input-date.stories.ts": [
                 {
                     "name": "Label",
@@ -2124,6 +2108,50 @@
                     "defaultValue": "{\r\n    title: 'Example/PhoneNumberInput',\r\n    component: InputPhoneNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPhoneNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
+            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
+                {
+                    "name": "Label",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<InputText>",
+                    "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                }
+            ],
+            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
+                {
+                    "name": "Label",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<InputNumber>",
+                    "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                }
+            ],
             "src/stories/components/lechatong-price-input/input-price.stories.ts": [
                 {
                     "name": "Label",
@@ -2166,28 +2194,6 @@
                     "deprecationMessage": "",
                     "type": "Meta<InputSelect>",
                     "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-                }
-            ],
-            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
-                {
-                    "name": "Label",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<InputText>",
-                    "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
             "src/stories/Header.stories.ts": [
@@ -2283,13 +2289,13 @@
                             "name": "GREATER_THAN",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "value": "The value entered must be greater than {}"
+                            "value": "The value entered must be greater than "
                         },
                         {
                             "name": "LESS_THAN",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "value": "The value entered must be less than {}"
+                            "value": "The value entered must be less than "
                         }
                     ],
                     "ctype": "miscellaneous",
@@ -2354,19 +2360,6 @@
                     "kind": 177
                 }
             ],
-            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<InputNumber>",
-                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
             "src/stories/components/lechatong-date-input/input-date.stories.ts": [
                 {
                     "name": "Story",
@@ -2393,6 +2386,32 @@
                     "kind": 177
                 }
             ],
+            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<InputText>",
+                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
+            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<InputNumber>",
+                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
             "src/stories/components/lechatong-price-input/input-price.stories.ts": [
                 {
                     "name": "Story",
@@ -2413,19 +2432,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<InputSelect>",
                     "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
-            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<InputText>",
-                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -2651,7 +2657,7 @@
                 "filePath": "src/stories/components/lechatong-number-input/input-number.component.ts",
                 "type": "component",
                 "linktype": "component",
-                "name": "InputDateComponent",
+                "name": "InputNumberComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/14",
                 "status": "low"
@@ -2711,7 +2717,7 @@
                 "linktype": "component",
                 "name": "InputPriceComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/12",
                 "status": "low"
             },
             {

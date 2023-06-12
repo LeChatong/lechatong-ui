@@ -4,10 +4,11 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 @Component({
     selector: 'lechatong-country-text',
     imports: [CommonModule],
-    template: ` 
+    standalone: true,
+    template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
-        <input 
+        <input
             type="text"
             placeholder="{{this.placeHolder}}"
             maxlength="{{this.maxLenght}}"
@@ -17,7 +18,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             (submit)="onSubmit.emit($event)" />
-            <span 
+            <span
               ng-if="{{this.message}}"
               [ngClass]="messageClasses">
               {{this.message}}

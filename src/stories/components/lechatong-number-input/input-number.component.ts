@@ -14,6 +14,8 @@ import { Message } from "src/stories/utils/message.const";
             inputmode="numeric"
             [value]="this.modelValue"
             [ngClass]="inputClasses"
+            [max]="max"
+            [min]="min"
             [disabled]="this.disabled"
             (input)="inputHandler($event)"
             (focus)="onFocus.emit($event)"
@@ -28,7 +30,7 @@ import { Message } from "src/stories/utils/message.const";
     `,
     styleUrls: ['./input-number.scss']
 })
-export default class InputDateComponent {
+export default class InputNumberComponent {
 
   @Input()
   label = 'Label';
@@ -66,9 +68,6 @@ export default class InputDateComponent {
 
   blurHandler(e: Event): void {
     let inputValue = parseInt((e.target as HTMLInputElement).value)
-    console.log(inputValue)
-    console.log(this.min)
-    console.log(this.max)
     if(!inputValue){
       this.defineInput('error', Message.IS_EMPTY)
     }

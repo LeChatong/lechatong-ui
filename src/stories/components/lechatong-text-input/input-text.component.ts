@@ -4,20 +4,20 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 @Component({
     selector: 'lechatong-input-text',
     imports: [CommonModule],
-    template: ` 
+    template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
-        <input 
+        <input
             type="text"
             placeholder="{{this.placeHolder}}"
-            maxlength="{{this.maxLenght}}"
-            minlength="{{this.minLenght}}"
+            [maxlength]="maxLenght"
+            [minlength]="minLenght"
             [ngClass]="inputClasses"
             [disabled]="this.disabled"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             (submit)="onSubmit.emit($event)" />
-            <span 
+            <span
               ng-if="{{this.message}}"
               [ngClass]="messageClasses">
               {{this.message}}

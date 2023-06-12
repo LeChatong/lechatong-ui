@@ -7,21 +7,24 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
-        <input
-            type="text"
-            placeholder="{{this.placeHolder}}"
-            maxlength="{{this.maxLenght}}"
-            minlength="{{this.minLenght}}"
-            [ngClass]="inputClasses"
-            [disabled]="this.disabled"
-            (focus)="onFocus.emit($event)"
-            (blur)="onBlur.emit($event)"
-            (submit)="onSubmit.emit($event)" />
-            <span
-              ng-if="{{this.message}}"
-              [ngClass]="messageClasses">
-              {{this.message}}
-            </span>
+        <div [ngClass]="inputClasses">
+          <span>$</span>
+          <input
+              type="float"
+              placeholder="{{this.placeHolder}}"
+              [value]="this.modelValue | currency :'USD'"
+              [disabled]="this.disabled"
+              (focus)="onFocus.emit($event)"
+              (blur)="onBlur.emit($event)"
+              (submit)="onSubmit.emit($event)" />
+          <span>USD</span>
+        </div>
+
+        <span
+          ng-if="{{this.message}}"
+          [ngClass]="messageClasses">
+          {{this.message}}
+        </span>
     </label>
     `,
     styleUrls: ['./input-price.scss']
@@ -32,10 +35,13 @@ export default class InputPriceComponent {
   label = 'Label';
 
   @Input()
-  maxLenght: number = 25;
+  modelValue?: number = 50
 
   @Input()
-  minLenght: number = 0;
+  max: number = 25;
+
+  @Input()
+  min: number = 0;
 
   @Input()
   disabled: boolean = false;
