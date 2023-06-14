@@ -18,7 +18,518 @@
     "guards": [],
     "interceptors": [],
     "classes": [],
-    "directives": [],
+    "directives": [
+        {
+            "name": "NumberonlyDirective",
+            "id": "directive-NumberonlyDirective-0b920a7294eb24c74995a61504a23f9b9c8f4186548dc807663e320022860393204f54172f1c98ad8d35f5a377c69aec7c5a2179f3793ff512563018479f915f",
+            "file": "src/stories/common/numberonly/numberonly.directive.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, ElementRef, HostListener, Input } from '@angular/core';\r\n\r\n@Directive({\r\n  selector: '[Numberonly]'\r\n})\r\nexport class NumberonlyDirective {\r\n\r\n  @Input() allowDecimals: boolean = true;\r\n  @Input() allowSign: boolean = false;\r\n  @Input() decimalSeparator: string = '.';\r\n\r\n  //  Regular expressions\r\n  integerUnsigned: string = '^[0-9]*$';\r\n  integerSigned: string = '^-?[0-9]+$';\r\n  decimalUnsigned: string = '^[0-9]+(.[0-9]+)?$';\r\n  decimalSigned: string = '^-?[0-9]+(.[0-9]+)?$';\r\n\r\n  /**\r\n     * Class constructor\r\n     * @param hostElement\r\n     */\r\n  constructor(private hostElement: ElementRef) { }\r\n\r\n  /**\r\n   * Event handler for host's change event\r\n   * @param e\r\n   */\r\n  @HostListener('change', ['$event']) onChange(e: any) {\r\n\r\n    this.validateValue(this.hostElement.nativeElement.value);\r\n  }\r\n\r\n  /**\r\n   * Event handler for host's paste event\r\n   * @param e\r\n   */\r\n  @HostListener('paste', ['$event']) onPaste(e: { clipboardData: { getData: (arg0: string) => any; }; preventDefault: () => void; }) {\r\n\r\n    // get and validate data from clipboard\r\n    let value = e.clipboardData.getData('text/plain');\r\n    this.validateValue(value);\r\n    e.preventDefault();\r\n  }\r\n\r\n  /**\r\n   * Event handler for host's keydown event\r\n   * @param event\r\n   */\r\n  @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {\r\n    console.log('KeyDown')\r\n    let cursorPosition: number = e.location;\r\n    let originalValue: string = e.key;\r\n    let key: string = this.getName(e);\r\n    let controlOrCommand = (e.ctrlKey === true || e.metaKey === true);\r\n    let signExists = originalValue.includes('-');\r\n    let separatorExists = originalValue.includes(this.decimalSeparator);\r\n\r\n    // allowed keys apart from numeric characters\r\n    let allowedKeys = [\r\n        'Backspace', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'\r\n    ];\r\n\r\n    // when decimals are allowed, add\r\n    // decimal separator to allowed codes when\r\n    // its position is not close to the the sign (-. and .-)\r\n    let separatorIsCloseToSign = (signExists && cursorPosition <= 1);\r\n    if (this.allowDecimals && !separatorIsCloseToSign && !separatorExists) {\r\n\r\n        if (this.decimalSeparator == '.')\r\n            allowedKeys.push('.');\r\n        else\r\n            allowedKeys.push(',');\r\n    }\r\n\r\n    // when minus sign is allowed, add its\r\n    // key to allowed key only when the\r\n    // cursor is in the first position, and\r\n    // first character is different from\r\n    // decimal separator\r\n    let firstCharacterIsSeparator = (originalValue.charAt(0) != this.decimalSeparator);\r\n    if (this.allowSign && !signExists &&\r\n        firstCharacterIsSeparator && cursorPosition == 0) {\r\n\r\n        allowedKeys.push('-');\r\n    }\r\n\r\n    // allow some non-numeric characters\r\n    if (allowedKeys.indexOf(key) != -1 ||\r\n        // Allow: Ctrl+A and Command+A\r\n        (key == 'a' && controlOrCommand) ||\r\n        // Allow: Ctrl+C and Command+C\r\n        (key == 'c' && controlOrCommand) ||\r\n        // Allow: Ctrl+V and Command+V\r\n        (key == 'v' && controlOrCommand) ||\r\n        // Allow: Ctrl+X and Command+X\r\n        (key == 'x' && controlOrCommand)) {\r\n        // let it happen, don't do anything\r\n        return;\r\n    }\r\n\r\n    // save value before keydown event\r\n    // this.previousValue = originalValue;\r\n\r\n    // allow number characters only\r\n    let isNumber = (new RegExp(this.integerUnsigned)).test(key);\r\n    if (isNumber) return; else e.preventDefault();\r\n  }\r\n\r\n  /**\r\n   * Test whether value is a valid number or not\r\n   * @param value\r\n   */\r\n  validateValue(value: string): void {\r\n\r\n    // choose the appropiate regular expression\r\n    let regex: string = '';\r\n    if (!this.allowDecimals && !this.allowSign) regex = this.integerUnsigned;\r\n    if (!this.allowDecimals && this.allowSign) regex = this.integerSigned;\r\n    if (this.allowDecimals && !this.allowSign) regex = this.decimalUnsigned;\r\n    if (this.allowDecimals &&  this.allowSign) regex = this.decimalSigned;\r\n\r\n    // when a numbers begins with a decimal separator,\r\n    // fix it adding a zero in the beginning\r\n    let firstCharacter = value.charAt(0);\r\n    if (firstCharacter == this.decimalSeparator)\r\n        value = 0 + value;\r\n\r\n    // when a numbers ends with a decimal separator,\r\n    // fix it adding a zero in the end\r\n    let lastCharacter = value.charAt(value.length-1);\r\n    if (lastCharacter == this.decimalSeparator)\r\n        value = value + 0;\r\n\r\n    // test number with regular expression, when\r\n    // number is invalid, replace it with a zero\r\n    let valid: boolean = (new RegExp(regex)).test(value);\r\n    this.hostElement.nativeElement['value'] = valid ? value : 0;\r\n  }\r\n\r\n  /**\r\n  * Get key's name\r\n  * @param e\r\n  */\r\n  getName(e: any): string {\r\n\r\n    if (e.key) {\r\n\r\n        return e.key;\r\n\r\n    } else {\r\n\r\n        // for old browsers\r\n        if (e.keyCode && String.fromCharCode) {\r\n\r\n            switch (e.keyCode) {\r\n                case   8: return 'Backspace';\r\n                case   9: return 'Tab';\r\n                case  27: return 'Escape';\r\n                case  37: return 'ArrowLeft';\r\n                case  39: return 'ArrowRight';\r\n                case 188: return ',';\r\n                case 190: return '.';\r\n                case 109: return '-'; // minus in numbpad\r\n                case 173: return '-'; // minus in alphabet keyboard in firefox\r\n                case 189: return '-'; // minus in alphabet keyboard in chrome\r\n                default: return String.fromCharCode(e.keyCode);\r\n            }\r\n        } else{\r\n          return ''\r\n        }\r\n    }\r\n  }\r\n\r\n}\r\n",
+            "selector": "[Numberonly]",
+            "providers": [],
+            "inputsClass": [
+                {
+                    "name": "allowDecimals",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 8,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "allowSign",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 9,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "decimalSeparator",
+                    "defaultValue": "'.'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [
+                {
+                    "name": "change",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nEvent handler for host's change event\n",
+                    "description": "<p>Event handler for host&#39;s change event</p>\n",
+                    "jsdoctags": [
+                        {
+                            "pos": 684,
+                            "end": 697,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 338,
+                            "tagName": {
+                                "pos": 685,
+                                "end": 690,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": "",
+                            "name": {
+                                "pos": 691,
+                                "end": 692,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "e"
+                            },
+                            "isNameFirst": true,
+                            "isBracketed": false
+                        }
+                    ],
+                    "line": 28
+                },
+                {
+                    "name": "keydown",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nEvent handler for host's keydown event\n",
+                    "description": "<p>Event handler for host&#39;s keydown event</p>\n",
+                    "jsdoctags": [
+                        {
+                            "pos": 1263,
+                            "end": 1280,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 338,
+                            "tagName": {
+                                "pos": 1264,
+                                "end": 1269,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": "",
+                            "name": {
+                                "pos": 1270,
+                                "end": 1275,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "event"
+                            },
+                            "isNameFirst": true,
+                            "isBracketed": false
+                        }
+                    ],
+                    "line": 49
+                },
+                {
+                    "name": "paste",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nEvent handler for host's paste event\n",
+                    "description": "<p>Event handler for host&#39;s paste event</p>\n",
+                    "jsdoctags": [
+                        {
+                            "pos": 886,
+                            "end": 899,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 338,
+                            "tagName": {
+                                "pos": 887,
+                                "end": 892,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": "",
+                            "name": {
+                                "pos": 893,
+                                "end": 894,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "e"
+                            },
+                            "isNameFirst": true,
+                            "isBracketed": false
+                        }
+                    ],
+                    "line": 37
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "decimalSigned",
+                    "defaultValue": "'^-?[0-9]+(.[0-9]+)?$'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "decimalUnsigned",
+                    "defaultValue": "'^[0-9]+(.[0-9]+)?$'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "integerSigned",
+                    "defaultValue": "'^-?[0-9]+$'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "integerUnsigned",
+                    "defaultValue": "'^[0-9]*$'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getName",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 144,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nGet key's name\n",
+                    "description": "<p>Get key&#39;s name</p>\n",
+                    "jsdoctags": [
+                        {
+                            "name": {
+                                "pos": 4710,
+                                "end": 4711,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "e"
+                            },
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "pos": 4704,
+                                "end": 4709,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "onChange",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nEvent handler for host's change event\n",
+                    "description": "<p>Event handler for host&#39;s change event</p>\n",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'change', ['$event']"
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": {
+                                "pos": 691,
+                                "end": 692,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "e"
+                            },
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "pos": 685,
+                                "end": 690,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "onKeyDown",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 49,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nEvent handler for host's keydown event\n",
+                    "description": "<p>Event handler for host&#39;s keydown event</p>\n",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'keydown', ['$event']"
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "e",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onPaste",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 37,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nEvent handler for host's paste event\n",
+                    "description": "<p>Event handler for host&#39;s paste event</p>\n",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'paste', ['$event']"
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": {
+                                "pos": 893,
+                                "end": 894,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "e"
+                            },
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "pos": 887,
+                                "end": 892,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "validateValue",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 113,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nTest whether value is a valid number or not\n",
+                    "description": "<p>Test whether value is a valid number or not</p>\n",
+                    "jsdoctags": [
+                        {
+                            "name": {
+                                "pos": 3542,
+                                "end": 3547,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "value"
+                            },
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "pos": 3536,
+                                "end": 3541,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "param"
+                            },
+                            "comment": ""
+                        }
+                    ]
+                }
+            ],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "<p>Class constructor</p>\n",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "hostElement",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "rawdescription": "\n\nClass constructor\n",
+                "jsdoctags": [
+                    {
+                        "name": {
+                            "pos": 552,
+                            "end": 563,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "hostElement"
+                        },
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "pos": 546,
+                            "end": 551,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "param"
+                        },
+                        "comment": ""
+                    }
+                ]
+            }
+        }
+    ],
     "components": [
         {
             "name": "AppComponent",
@@ -987,7 +1498,7 @@
         },
         {
             "name": "InputPriceComponent",
-            "id": "component-InputPriceComponent-52b062c1ceb251df231b0fbc6b63e9558a3a15a4b3de1f414365f407d649fc266d48b3bd4ad6f39840cf3263a7313146fe4c651de5dda2668e5d3249e620d911",
+            "id": "component-InputPriceComponent-dd828e80f82ef3b253e25275e68b9ae7c8ada300b044a7972fda902b2b95c8a8a9aa1917d5d79a5575b011151eb94d2859814699c0997280ac7772b892e07895",
             "file": "src/stories/components/lechatong-price-input/input-price.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -999,7 +1510,7 @@
                 "./input-price.scss"
             ],
             "styles": [],
-            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <div [ngClass]=\"inputClasses\">\n      <span>$</span>\n      <input\n          type=\"float\"\n          placeholder=\"{{this.placeHolder}}\"\n          [value]=\"this.modelValue | currency :'USD'\"\n          [disabled]=\"this.disabled\"\n          (focus)=\"onFocus.emit($event)\"\n          (blur)=\"onBlur.emit($event)\"\n          (submit)=\"onSubmit.emit($event)\" />\n      <span>USD</span>\n    </div>\n\n    <span\n      ng-if=\"{{this.message}}\"\n      [ngClass]=\"messageClasses\">\n      {{this.message}}\n    </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <div [ngClass]=\"inputClasses\">\n      <span>$</span>\n      <input\n          [Numberonly]\n          placeholder=\"{{this.placeHolder}}\"\n          [value]=\"this.modelValue\"\n          [disabled]=\"this.disabled\"\n          (focus)=\"onFocus.emit($event)\"\n          (blur)=\"onBlur.emit($event)\"\n          (submit)=\"onSubmit.emit($event)\" />\n      <span>USD</span>\n    </div>\n\n    <span\n      ng-if=\"{{this.message}}\"\n      [ngClass]=\"messageClasses\">\n      {{this.message}}\n    </span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -1111,7 +1622,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-price',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <div [ngClass]=\"inputClasses\">\r\n          <span>$</span>\r\n          <input\r\n              type=\"float\"\r\n              placeholder=\"{{this.placeHolder}}\"\r\n              [value]=\"this.modelValue | currency :'USD'\"\r\n              [disabled]=\"this.disabled\"\r\n              (focus)=\"onFocus.emit($event)\"\r\n              (blur)=\"onBlur.emit($event)\"\r\n              (submit)=\"onSubmit.emit($event)\" />\r\n          <span>USD</span>\r\n        </div>\r\n\r\n        <span\r\n          ng-if=\"{{this.message}}\"\r\n          [ngClass]=\"messageClasses\">\r\n          {{this.message}}\r\n        </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-price.scss']\r\n})\r\nexport default class InputPriceComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max: number = 25;\r\n\r\n  @Input()\r\n  min: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-price',\r\n        `lechatong-input-price--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-price--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-price',\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <div [ngClass]=\"inputClasses\">\r\n          <span>$</span>\r\n          <input\r\n              [Numberonly]\r\n              placeholder=\"{{this.placeHolder}}\"\r\n              [value]=\"this.modelValue\"\r\n              [disabled]=\"this.disabled\"\r\n              (focus)=\"onFocus.emit($event)\"\r\n              (blur)=\"onBlur.emit($event)\"\r\n              (submit)=\"onSubmit.emit($event)\" />\r\n          <span>USD</span>\r\n        </div>\r\n\r\n        <span\r\n          ng-if=\"{{this.message}}\"\r\n          [ngClass]=\"messageClasses\">\r\n          {{this.message}}\r\n        </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-price.scss']\r\n})\r\nexport default class InputPriceComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max: number = 25;\r\n\r\n  @Input()\r\n  min: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-price',\r\n        `lechatong-input-price--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-price--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1519,13 +2030,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-ddb3261c2f1da6f9ec37803d286615921268e7d2e8bba928dd6c9e1d0b3833293398f581d34329f3e3ad1bafd17eb8e3b49b896dc2fd6734a17999b373e04b28",
+            "id": "module-AppModule-18a975fd3c9716bdf3333da46dc75cc0712d5ec5b4b417274cbb6b987f69a1d36b14de9dc681e9cbe108e1cc6306ed9d4c9c1e4a653d31d532c5669f1ed2ff3a",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\n\n@NgModule({\n  declarations: [\n    AppComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    FontAwesomeModule\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\n\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { NumberonlyDirective } from 'src/stories/common/numberonly/numberonly.directive';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    NumberonlyDirective\r\n  ],\r\n  imports: [\r\n    BrowserModule,\r\n    AppRoutingModule\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -1536,6 +2047,9 @@
                     "elements": [
                         {
                             "name": "AppComponent"
+                        },
+                        {
+                            "name": "NumberonlyDirective"
                         }
                     ]
                 },
@@ -1628,6 +2142,16 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+            },
+            {
+                "name": "Label",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1648,26 +2172,6 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-            },
-            {
-                "name": "Label",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-            },
-            {
-                "name": "Label",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/components/lechatong-price-input/input-price.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1679,6 +2183,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+            },
+            {
+                "name": "Label",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -1778,6 +2292,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<InputNumber>",
+                "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1798,26 +2322,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<InputText>",
-                "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<InputNumber>",
-                "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/components/lechatong-price-input/input-price.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1833,6 +2337,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<InputSelect>",
                 "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<InputText>",
+                "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
             },
             {
                 "name": "preview",
@@ -1905,6 +2419,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<InputNumber>",
+                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<InputDate>",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
@@ -1927,28 +2452,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<InputText>",
-                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<InputNumber>",
-                "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<InputPrice>",
                 "file": "src/stories/components/lechatong-price-input/input-price.stories.ts",
                 "deprecated": false,
@@ -1962,6 +2465,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<InputSelect>",
                 "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<InputText>",
+                "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -2064,6 +2578,28 @@
                     "defaultValue": "{\r\n    title: 'Example/CountryInput',\r\n    component: CountryInput,\r\n    tags: ['autodocs'],\r\n    render: (args: CountryInput) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
+            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
+                {
+                    "name": "Label",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<InputNumber>",
+                    "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                }
+            ],
             "src/stories/components/lechatong-date-input/input-date.stories.ts": [
                 {
                     "name": "Label",
@@ -2108,50 +2644,6 @@
                     "defaultValue": "{\r\n    title: 'Example/PhoneNumberInput',\r\n    component: InputPhoneNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPhoneNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
-            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
-                {
-                    "name": "Label",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<InputText>",
-                    "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-                }
-            ],
-            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
-                {
-                    "name": "Label",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<InputNumber>",
-                    "defaultValue": "{\r\n    title: 'Example/NumberInput',\r\n    component: InputNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-                }
-            ],
             "src/stories/components/lechatong-price-input/input-price.stories.ts": [
                 {
                     "name": "Label",
@@ -2194,6 +2686,28 @@
                     "deprecationMessage": "",
                     "type": "Meta<InputSelect>",
                     "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                }
+            ],
+            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
+                {
+                    "name": "Label",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<InputText>",
+                    "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
             "src/stories/Header.stories.ts": [
@@ -2360,6 +2874,19 @@
                     "kind": 177
                 }
             ],
+            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<InputNumber>",
+                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
             "src/stories/components/lechatong-date-input/input-date.stories.ts": [
                 {
                     "name": "Story",
@@ -2380,32 +2907,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<InputPhoneNumber>",
                     "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
-            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<InputText>",
-                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
-            "src/stories/components/lechatong-number-input/input-number.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<InputNumber>",
-                    "file": "src/stories/components/lechatong-number-input/input-number.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -2437,6 +2938,19 @@
                     "description": "",
                     "kind": 177
                 }
+            ],
+            "src/stories/components/lechatong-text-input/input-text.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<InputText>",
+                    "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
             ]
         }
     },
@@ -2455,7 +2969,7 @@
         ]
     },
     "coverage": {
-        "count": 1,
+        "count": 3,
         "status": "low",
         "files": [
             {
@@ -2545,6 +3059,15 @@
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
+            },
+            {
+                "filePath": "src/stories/common/numberonly/numberonly.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "NumberonlyDirective",
+                "coveragePercent": 52,
+                "coverageCount": "9/17",
+                "status": "good"
             },
             {
                 "filePath": "src/stories/components/lechatong-button/button.component.ts",

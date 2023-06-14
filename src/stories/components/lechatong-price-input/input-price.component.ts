@@ -1,8 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.directive";
 
 @Component({
     selector: 'lechatong-input-price',
+    standalone: true,
+    hostDirectives:[NumberonlyDirective],
     imports: [CommonModule],
     template: `
     <label class="lechatong">
@@ -10,9 +13,9 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
         <div [ngClass]="inputClasses">
           <span>$</span>
           <input
-              type="float"
+              Numberonly
               placeholder="{{this.placeHolder}}"
-              [value]="this.modelValue | currency :'USD'"
+              [value]="this.modelValue"
               [disabled]="this.disabled"
               (focus)="onFocus.emit($event)"
               (blur)="onBlur.emit($event)"
