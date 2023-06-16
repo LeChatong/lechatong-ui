@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { max } from "rxjs";
 import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.directive";
 
 @Component({
@@ -11,16 +12,17 @@ import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.di
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <div [ngClass]="inputClasses">
-          <span>$</span>
+          <span class="lechatong-money-sign" ng-if="{{this.moneySign}}">{{this.moneySign}}</span>
           <input
-              Numberonly
+              Numberonly [allowDecimals]="true"
+              [allowSign]="false"
               placeholder="{{this.placeHolder}}"
               [value]="this.modelValue"
               [disabled]="this.disabled"
               (focus)="onFocus.emit($event)"
               (blur)="onBlur.emit($event)"
               (submit)="onSubmit.emit($event)" />
-          <span>USD</span>
+          <span ng-if="{{this.suffix}}">{{this.suffix}}</span>
         </div>
 
         <span
@@ -57,6 +59,12 @@ export default class InputPriceComponent {
 
   @Input()
   message = '(*) Simple message text';
+
+  @Input()
+  suffix? = 'USD';
+
+  @Input()
+  moneySign? = '$';
 
   @Output()
   onFocus = new EventEmitter<Event>();

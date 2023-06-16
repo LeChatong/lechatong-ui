@@ -1,15 +1,19 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from "@angular/core";
+import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.directive";
 import { Message } from "src/stories/utils/message.const";
 
 @Component({
     selector: 'lechatong-input-number',
+    standalone: true,
+    hostDirectives:[NumberonlyDirective],
     imports: [CommonModule],
+    schemas: [NO_ERRORS_SCHEMA],
     template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <input
-            type="number"
+            Numberonly
             placeholder="{{this.placeHolder}}"
             inputmode="numeric"
             [value]="this.modelValue"
@@ -22,7 +26,7 @@ import { Message } from "src/stories/utils/message.const";
             (blur)="blurHandler($event)"
             (submit)="onSubmit.emit($event)" />
             <span
-              ng-if="{{this.message}}"
+            ng-if="{{this.message}}"
               [ngClass]="messageClasses">
               {{this.message}}
             </span>

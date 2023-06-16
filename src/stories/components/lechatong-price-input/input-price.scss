@@ -11,7 +11,7 @@
     }
 
     &-input-price {
-        display: flex;
+        display: inline-block;
         align-content: center;
         size: 16px;
         height: 20px;
@@ -22,10 +22,6 @@
         margin: 8px 0 6px 0;
         border-style: solid;
         background-color: $lechatong-basic-02;
-
-        & span {
-          margin: 0 1rem;
-        }
 
         &--default {
             border-color: $lechatong-default-primary;
@@ -46,6 +42,11 @@
             cursor: not-allowed;
             background-color: $lechatong-default-secondary;
         }
+    }
+
+    &-money-sign {
+      margin-right: 16px;
+      size: 12px;
     }
 
     &-message {

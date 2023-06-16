@@ -7,14 +7,17 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class NumberonlyDirective {
 
   @Input() allowDecimals: boolean = true;
-  @Input() allowSign: boolean = false;
+  @Input() allowSign: boolean = true;
   @Input() decimalSeparator: string = '.';
+  @Input() twoNumberAfterDecimal = false;
 
   //  Regular expressions
   integerUnsigned: string = '^[0-9]*$';
   integerSigned: string = '^-?[0-9]+$';
   decimalUnsigned: string = '^[0-9]+(.[0-9]+)?$';
   decimalSigned: string = '^-?[0-9]+(.[0-9]+)?$';
+
+  previousValue: string = '';
 
   /**
      * Class constructor
@@ -27,44 +30,31 @@ export class NumberonlyDirective {
    * @param e
    */
   @HostListener('change', ['$event']) onChange(e: any) {
-
-    this.validateValue(this.hostElement.nativeElement.value);
+    this.validateValue((e.target as HTMLInputElement).value);
   }
 
-  /**
-   * Event handler for host's paste event
-   * @param e
-   */
-  @HostListener('paste', ['$event']) onPaste(e: { clipboardData: { getData: (arg0: string) => any; }; preventDefault: () => void; }) {
-
-    // get and validate data from clipboard
-    let value = e.clipboardData.getData('text/plain');
-    this.validateValue(value);
-    e.preventDefault();
-  }
 
   /**
    * Event handler for host's keydown event
    * @param event
    */
   @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {
-    console.log('KeyDown')
-    let cursorPosition: number = e.location;
-    let originalValue: string = e.key;
+    // allowed keys apart from numeric characters
+    let allowedKeys = [
+      'Backspace', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'
+    ];
+    let cursorPosition = (e.target as HTMLInputElement).selectionStart;
+    let originalValue: string = (e.target as HTMLInputElement).value;
     let key: string = this.getName(e);
     let controlOrCommand = (e.ctrlKey === true || e.metaKey === true);
     let signExists = originalValue.includes('-');
     let separatorExists = originalValue.includes(this.decimalSeparator);
 
-    // allowed keys apart from numeric characters
-    let allowedKeys = [
-        'Backspace', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'
-    ];
-
     // when decimals are allowed, add
     // decimal separator to allowed codes when
     // its position is not close to the the sign (-. and .-)
-    let separatorIsCloseToSign = (signExists && cursorPosition <= 1);
+    let separatorIsCloseToSign = (cursorPosition && (signExists && cursorPosition <= 1));
+
     if (this.allowDecimals && !separatorIsCloseToSign && !separatorExists) {
 
         if (this.decimalSeparator == '.')
@@ -100,7 +90,7 @@ export class NumberonlyDirective {
     }
 
     // save value before keydown event
-    // this.previousValue = originalValue;
+    this.previousValue = originalValue;
 
     // allow number characters only
     let isNumber = (new RegExp(this.integerUnsigned)).test(key);
