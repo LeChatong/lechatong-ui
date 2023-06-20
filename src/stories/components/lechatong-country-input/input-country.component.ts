@@ -1,5 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import countriesData from "../../common/data/countries.lechatong.json";
+import { ICountry } from "src/stories/utils/country.lechatong";
 
 @Component({
     selector: 'lechatong-country-text',
@@ -7,36 +9,38 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     standalone: true,
     template: `
     <label class="lechatong">
-        <span class="lechatong-label">{{this.label}}</span>
+        <span ng-if="{{this.label}}" class="lechatong-label">{{this.label}}</span>
         <input
-            type="text"
-            placeholder="{{this.placeHolder}}"
-            maxlength="{{this.maxLenght}}"
-            minlength="{{this.minLenght}}"
-            [ngClass]="inputClasses"
-            [disabled]="this.disabled"
-            (focus)="onFocus.emit($event)"
-            (blur)="onBlur.emit($event)"
-            (submit)="onSubmit.emit($event)" />
-            <span
-              ng-if="{{this.message}}"
-              [ngClass]="messageClasses">
-              {{this.message}}
-            </span>
+          readonly
+          [ngClass]="inputClasses"
+          [disabled]="this.disabled"
+          [placeholder]="this.placeHolder"
+          [value]="this.modelValue"
+          (focus)="isFocus = true"
+          (blur)="isFocus = false"
+          >
+        <span class="lechatong-country-menu" [hidden]="!isFocus && !disabled">
+          <div class="lechatong-country-menu-item" *ngFor="let country of countries"
+            (click)="clickItemHandler(country)">
+            <img width="20" height="20" [src]="country.image" />
+            <b>{{ country.name }}</b>
+          </div>
+        </span>
+
+        <span ng-if="{{this.message}}" [ngClass]="messageClasses">{{this.message}}</span>
     </label>
     `,
     styleUrls: ['./input-country.scss']
 })
-export default class InputContryComponent {
+export default class InputCountryComponent {
+
+  countries: ICountry[] = countriesData
 
   @Input()
-  label = 'Label';
+  label? = 'Label';
 
   @Input()
-  maxLenght: number = 25;
-
-  @Input()
-  minLenght: number = 0;
+  modelValue?: ICountry;
 
   @Input()
   disabled: boolean = false;
@@ -45,16 +49,30 @@ export default class InputContryComponent {
   inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';
 
   @Input()
-  placeHolder = 'Write anything...';
+  placeHolder? = '--- Choose a country ---';
 
   @Input()
-  message = '(*) Simple message text';
+  message? = '(*) Simple message text';
 
-  @Output()
-  onFocus = new EventEmitter<Event>();
+  isFocus = false
 
-  @Output()
-  onBlur = new EventEmitter<Event>();
+  clickItemHandler(country: ICountry): void {
+    console.log('1')
+    if(this.modelValue !== country){
+      console.log('2')
+      this.modelValue !== country
+    }
+  }
+
+  onFocus(e: Event): void {
+    console.log(this.isFocus)
+    this.isFocus = true
+  };
+
+  onBlur(e: Event): void {
+    console.log(this.isFocus)
+    this.isFocus = false
+  };
 
   @Output()
   onSubmit = new EventEmitter<Event>();

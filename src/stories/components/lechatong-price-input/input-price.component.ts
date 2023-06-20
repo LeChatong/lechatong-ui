@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { max } from "rxjs";
-import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.directive";
+import { NumberonlyDirective } from "src/stories/common/directives/numberonly/numberonly.directive";
 
 @Component({
     selector: 'lechatong-input-price',
@@ -14,7 +14,7 @@ import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.di
         <div [ngClass]="inputClasses">
           <span class="lechatong-money-sign" ng-if="{{this.moneySign}}">{{this.moneySign}}</span>
           <input
-              Numberonly [allowDecimals]="true"
+              numberonly [allowDecimals]="true"
               [allowSign]="false"
               placeholder="{{this.placeHolder}}"
               [value]="this.modelValue"

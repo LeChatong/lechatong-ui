@@ -2,6 +2,65 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "ICountry",
+            "id": "interface-ICountry-f5bef98a279495e059c2ba161bff5da6472c088bfe4905943ffbcdba28727d9ef822c339b844df9c2149a155eceef9eeb3c84f900ee4c591f927ce623743f016",
+            "file": "src/stories/utils/country.lechatong.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface ICountry {\r\n  name: String;\r\n  code: String;\r\n  emoji: String;\r\n  unicode: String;\r\n  image: String;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "code",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                },
+                {
+                    "name": "emoji",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "image",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "unicode",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
             "name": "User",
             "id": "interface-User-9c7e5f1bbbab702cb032307d130876cb68969b0cd4eedef32a0c8cad8081a54e5f8f577ed6ad4539c1b99a1d246cb34031d198c2ea8eba440e64e91b14f01fdc",
             "file": "src/stories/User.ts",
@@ -21,13 +80,13 @@
     "directives": [
         {
             "name": "NumberonlyDirective",
-            "id": "directive-NumberonlyDirective-e5b78412c7adc1a0503740295b084c4c0cf7389fa5290581fccf8b80fc8bccdc6f53914c892c0ad7f443f25946e09c9ceb4f017f014054054c522238ff35551f",
-            "file": "src/stories/common/numberonly/numberonly.directive.ts",
+            "id": "directive-NumberonlyDirective-38b52bdb60bd4166be66a7f262ec98b792a9418f3bd6ee0393a3f44c02290e800d95b626008f6b1c9b1ec09489401fb51f97e8fd9d68ba0f75b14ed1ed788ba7",
+            "file": "src/stories/common/directives/numberonly/numberonly.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, ElementRef, HostListener, Input } from '@angular/core';\r\n\r\n@Directive({\r\n  selector: '[Numberonly]',\r\n  standalone: true\r\n})\r\nexport class NumberonlyDirective {\r\n\r\n  @Input() allowDecimals: boolean = true;\r\n  @Input() allowSign: boolean = true;\r\n  @Input() decimalSeparator: string = '.';\r\n  @Input() twoNumberAfterDecimal = false;\r\n\r\n  //  Regular expressions\r\n  integerUnsigned: string = '^[0-9]*$';\r\n  integerSigned: string = '^-?[0-9]+$';\r\n  decimalUnsigned: string = '^[0-9]+(.[0-9]+)?$';\r\n  decimalSigned: string = '^-?[0-9]+(.[0-9]+)?$';\r\n\r\n  previousValue: string = '';\r\n\r\n  /**\r\n     * Class constructor\r\n     * @param hostElement\r\n     */\r\n  constructor(private hostElement: ElementRef) { }\r\n\r\n  /**\r\n   * Event handler for host's change event\r\n   * @param e\r\n   */\r\n  @HostListener('change', ['$event']) onChange(e: any) {\r\n    this.validateValue((e.target as HTMLInputElement).value);\r\n  }\r\n\r\n\r\n  /**\r\n   * Event handler for host's keydown event\r\n   * @param event\r\n   */\r\n  @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {\r\n    // allowed keys apart from numeric characters\r\n    let allowedKeys = [\r\n      'Backspace', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'\r\n    ];\r\n    let cursorPosition = (e.target as HTMLInputElement).selectionStart;\r\n    let originalValue: string = (e.target as HTMLInputElement).value;\r\n    let key: string = this.getName(e);\r\n    let controlOrCommand = (e.ctrlKey === true || e.metaKey === true);\r\n    let signExists = originalValue.includes('-');\r\n    let separatorExists = originalValue.includes(this.decimalSeparator);\r\n\r\n    // when decimals are allowed, add\r\n    // decimal separator to allowed codes when\r\n    // its position is not close to the the sign (-. and .-)\r\n    let separatorIsCloseToSign = (cursorPosition && (signExists && cursorPosition <= 1));\r\n\r\n    if (this.allowDecimals && !separatorIsCloseToSign && !separatorExists) {\r\n\r\n        if (this.decimalSeparator == '.')\r\n            allowedKeys.push('.');\r\n        else\r\n            allowedKeys.push(',');\r\n    }\r\n\r\n    // when minus sign is allowed, add its\r\n    // key to allowed key only when the\r\n    // cursor is in the first position, and\r\n    // first character is different from\r\n    // decimal separator\r\n    let firstCharacterIsSeparator = (originalValue.charAt(0) != this.decimalSeparator);\r\n    if (this.allowSign && !signExists &&\r\n        firstCharacterIsSeparator && cursorPosition == 0) {\r\n\r\n        allowedKeys.push('-');\r\n    }\r\n\r\n    // allow some non-numeric characters\r\n    if (allowedKeys.indexOf(key) != -1 ||\r\n        // Allow: Ctrl+A and Command+A\r\n        (key == 'a' && controlOrCommand) ||\r\n        // Allow: Ctrl+C and Command+C\r\n        (key == 'c' && controlOrCommand) ||\r\n        // Allow: Ctrl+V and Command+V\r\n        (key == 'v' && controlOrCommand) ||\r\n        // Allow: Ctrl+X and Command+X\r\n        (key == 'x' && controlOrCommand)) {\r\n        // let it happen, don't do anything\r\n        return;\r\n    }\r\n\r\n    // save value before keydown event\r\n    this.previousValue = originalValue;\r\n\r\n    // allow number characters only\r\n    let isNumber = (new RegExp(this.integerUnsigned)).test(key);\r\n    if (isNumber) return; else e.preventDefault();\r\n  }\r\n\r\n  /**\r\n   * Test whether value is a valid number or not\r\n   * @param value\r\n   */\r\n  validateValue(value: string): void {\r\n\r\n    // choose the appropiate regular expression\r\n    let regex: string = '';\r\n    if (!this.allowDecimals && !this.allowSign) regex = this.integerUnsigned;\r\n    if (!this.allowDecimals && this.allowSign) regex = this.integerSigned;\r\n    if (this.allowDecimals && !this.allowSign) regex = this.decimalUnsigned;\r\n    if (this.allowDecimals &&  this.allowSign) regex = this.decimalSigned;\r\n\r\n    // when a numbers begins with a decimal separator,\r\n    // fix it adding a zero in the beginning\r\n    let firstCharacter = value.charAt(0);\r\n    if (firstCharacter == this.decimalSeparator)\r\n        value = 0 + value;\r\n\r\n    // when a numbers ends with a decimal separator,\r\n    // fix it adding a zero in the end\r\n    let lastCharacter = value.charAt(value.length-1);\r\n    if (lastCharacter == this.decimalSeparator)\r\n        value = value + 0;\r\n\r\n    // test number with regular expression, when\r\n    // number is invalid, replace it with a zero\r\n    let valid: boolean = (new RegExp(regex)).test(value);\r\n    this.hostElement.nativeElement['value'] = valid ? value : 0;\r\n  }\r\n\r\n  /**\r\n  * Get key's name\r\n  * @param e\r\n  */\r\n  getName(e: any): string {\r\n\r\n    if (e.key) {\r\n\r\n        return e.key;\r\n\r\n    } else {\r\n\r\n        // for old browsers\r\n        if (e.keyCode && String.fromCharCode) {\r\n\r\n            switch (e.keyCode) {\r\n                case   8: return 'Backspace';\r\n                case   9: return 'Tab';\r\n                case  27: return 'Escape';\r\n                case  37: return 'ArrowLeft';\r\n                case  39: return 'ArrowRight';\r\n                case 188: return ',';\r\n                case 190: return '.';\r\n                case 109: return '-'; // minus in numbpad\r\n                case 173: return '-'; // minus in alphabet keyboard in firefox\r\n                case 189: return '-'; // minus in alphabet keyboard in chrome\r\n                default: return String.fromCharCode(e.keyCode);\r\n            }\r\n        } else{\r\n          return ''\r\n        }\r\n    }\r\n  }\r\n\r\n}\r\n",
-            "selector": "[Numberonly]",
+            "sourceCode": "import { Directive, ElementRef, HostListener, Input } from '@angular/core';\r\n\r\n@Directive({\r\n  selector: '[numberonly]',\r\n  standalone: true\r\n})\r\nexport class NumberonlyDirective {\r\n\r\n  @Input() allowDecimals: boolean = true;\r\n  @Input() allowSign: boolean = true;\r\n  @Input() decimalSeparator: string = '.';\r\n  @Input() twoNumberAfterDecimal = false;\r\n\r\n  //  Regular expressions\r\n  integerUnsigned: string = '^[0-9]*$';\r\n  integerSigned: string = '^-?[0-9]+$';\r\n  decimalUnsigned: string = '^[0-9]+(.[0-9]+)?$';\r\n  decimalSigned: string = '^-?[0-9]+(.[0-9]+)?$';\r\n\r\n  previousValue: string = '';\r\n\r\n  /**\r\n     * Class constructor\r\n     * @param hostElement\r\n     */\r\n  constructor(private hostElement: ElementRef) { }\r\n\r\n  /**\r\n   * Event handler for host's change event\r\n   * @param e\r\n   */\r\n  @HostListener('change', ['$event']) onChange(e: any) {\r\n    this.validateValue((e.target as HTMLInputElement).value);\r\n  }\r\n\r\n\r\n  /**\r\n   * Event handler for host's keydown event\r\n   * @param event\r\n   */\r\n  @HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent) {\r\n    // allowed keys apart from numeric characters\r\n    let allowedKeys = [\r\n      'Backspace', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'\r\n    ];\r\n    let cursorPosition = (e.target as HTMLInputElement).selectionStart;\r\n    let originalValue: string = (e.target as HTMLInputElement).value;\r\n    let key: string = this.getName(e);\r\n    let controlOrCommand = (e.ctrlKey === true || e.metaKey === true);\r\n    let signExists = originalValue.includes('-');\r\n    let separatorExists = originalValue.includes(this.decimalSeparator);\r\n\r\n    // when decimals are allowed, add\r\n    // decimal separator to allowed codes when\r\n    // its position is not close to the the sign (-. and .-)\r\n    let separatorIsCloseToSign = (cursorPosition && (signExists && cursorPosition <= 1));\r\n\r\n    if (this.allowDecimals && !separatorIsCloseToSign && !separatorExists) {\r\n\r\n        if (this.decimalSeparator == '.')\r\n            allowedKeys.push('.');\r\n        else\r\n            allowedKeys.push(',');\r\n    }\r\n\r\n    // when minus sign is allowed, add its\r\n    // key to allowed key only when the\r\n    // cursor is in the first position, and\r\n    // first character is different from\r\n    // decimal separator\r\n    let firstCharacterIsSeparator = (originalValue.charAt(0) != this.decimalSeparator);\r\n    if (this.allowSign && !signExists &&\r\n        firstCharacterIsSeparator && cursorPosition == 0) {\r\n\r\n        allowedKeys.push('-');\r\n    }\r\n\r\n    // allow some non-numeric characters\r\n    if (allowedKeys.indexOf(key) != -1 ||\r\n        // Allow: Ctrl+A and Command+A\r\n        (key == 'a' && controlOrCommand) ||\r\n        // Allow: Ctrl+C and Command+C\r\n        (key == 'c' && controlOrCommand) ||\r\n        // Allow: Ctrl+V and Command+V\r\n        (key == 'v' && controlOrCommand) ||\r\n        // Allow: Ctrl+X and Command+X\r\n        (key == 'x' && controlOrCommand)) {\r\n        // let it happen, don't do anything\r\n        return;\r\n    }\r\n\r\n    // save value before keydown event\r\n    this.previousValue = originalValue;\r\n\r\n    // allow number characters only\r\n    let isNumber = (new RegExp(this.integerUnsigned)).test(key);\r\n    if (isNumber) return; else e.preventDefault();\r\n  }\r\n\r\n  /**\r\n   * Test whether value is a valid number or not\r\n   * @param value\r\n   */\r\n  validateValue(value: string): void {\r\n\r\n    // choose the appropiate regular expression\r\n    let regex: string = '';\r\n    if (!this.allowDecimals && !this.allowSign) regex = this.integerUnsigned;\r\n    if (!this.allowDecimals && this.allowSign) regex = this.integerSigned;\r\n    if (this.allowDecimals && !this.allowSign) regex = this.decimalUnsigned;\r\n    if (this.allowDecimals &&  this.allowSign) regex = this.decimalSigned;\r\n\r\n    // when a numbers begins with a decimal separator,\r\n    // fix it adding a zero in the beginning\r\n    let firstCharacter = value.charAt(0);\r\n    if (firstCharacter == this.decimalSeparator)\r\n        value = 0 + value;\r\n\r\n    // when a numbers ends with a decimal separator,\r\n    // fix it adding a zero in the end\r\n    let lastCharacter = value.charAt(value.length-1);\r\n    if (lastCharacter == this.decimalSeparator)\r\n        value = value + 0;\r\n\r\n    // test number with regular expression, when\r\n    // number is invalid, replace it with a zero\r\n    let valid: boolean = (new RegExp(regex)).test(value);\r\n    this.hostElement.nativeElement['value'] = valid ? value : 0;\r\n  }\r\n\r\n  /**\r\n  * Get key's name\r\n  * @param e\r\n  */\r\n  getName(e: any): string {\r\n\r\n    if (e.key) {\r\n\r\n        return e.key;\r\n\r\n    } else {\r\n\r\n        // for old browsers\r\n        if (e.keyCode && String.fromCharCode) {\r\n\r\n            switch (e.keyCode) {\r\n                case   8: return 'Backspace';\r\n                case   9: return 'Tab';\r\n                case  27: return 'Escape';\r\n                case  37: return 'ArrowLeft';\r\n                case  39: return 'ArrowRight';\r\n                case 188: return ',';\r\n                case 190: return '.';\r\n                case 109: return '-'; // minus in numbpad\r\n                case 173: return '-'; // minus in alphabet keyboard in firefox\r\n                case 189: return '-'; // minus in alphabet keyboard in chrome\r\n                default: return String.fromCharCode(e.keyCode);\r\n            }\r\n        } else{\r\n          return ''\r\n        }\r\n    }\r\n  }\r\n\r\n}\r\n",
+            "selector": "[numberonly]",
             "providers": [],
             "inputsClass": [
                 {
@@ -726,8 +785,8 @@
             "stylesData": ""
         },
         {
-            "name": "InputContryComponent",
-            "id": "component-InputContryComponent-dd46c62fdec48765f3b96506ac5344948ae7f158436f406cfb10480c0e089f127258de19a927176c7fcc7d5c4362a9054fce5fc6227ce3a902f922466f3d4fc4",
+            "name": "InputCountryComponent",
+            "id": "component-InputCountryComponent-a9c401d7700391bd9edbde4f72539101166d8ad209a85285b1d6b821109e4dc6fb7496e0889e43a499c13dc658812d8daf6cbb463afeeb82d64b902a28dbe3fd",
             "file": "src/stories/components/lechatong-country-input/input-country.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -739,7 +798,7 @@
                 "./input-country.scss"
             ],
             "styles": [],
-            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        type=\"text\"\n        placeholder=\"{{this.placeHolder}}\"\n        maxlength=\"{{this.maxLenght}}\"\n        minlength=\"{{this.minLenght}}\"\n        [ngClass]=\"inputClasses\"\n        [disabled]=\"this.disabled\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"onBlur.emit($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n          ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span ng-if=\"{{this.label}}\" class=\"lechatong-label\">{{this.label}}</span>\n    <input\n      readonly\n      [ngClass]=\"inputClasses\"\n      [disabled]=\"this.disabled\"\n      [placeholder]=\"this.placeHolder\"\n      [value]=\"this.modelValue\"\n      (focus)=\"isFocus = true\"\n      (blur)=\"isFocus = false\"\n      >\n    <span class=\"lechatong-country-menu\" [hidden]=\"!isFocus && !disabled\">\n      <div class=\"lechatong-country-menu-item\" *ngFor=\"let country of countries\"\n        (click)=\"clickItemHandler(country)\">\n        <img width=\"20\" height=\"20\" [src]=\"country.image\" />\n        <b>{{ country.name }}</b>\n      </div>\n    </span>\n\n    <span ng-if=\"{{this.message}}\" [ngClass]=\"messageClasses\">{{this.message}}</span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -748,7 +807,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 42,
+                    "line": 46,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -757,7 +816,7 @@
                     "defaultValue": "'default'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 45,
+                    "line": 49,
                     "type": "\"default\" | \"success\" | \"info\" | \"warning\" | \"error\"",
                     "decorators": []
                 },
@@ -766,17 +825,8 @@
                     "defaultValue": "'Label'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 33,
+                    "line": 40,
                     "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "maxLenght",
-                    "defaultValue": "25",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 36,
-                    "type": "number",
                     "decorators": []
                 },
                 {
@@ -784,57 +834,146 @@
                     "defaultValue": "'(*) Simple message text'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 51,
+                    "line": 55,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "minLenght",
-                    "defaultValue": "0",
+                    "name": "modelValue",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 39,
-                    "type": "number",
+                    "line": 43,
+                    "type": "ICountry",
                     "decorators": []
                 },
                 {
                     "name": "placeHolder",
-                    "defaultValue": "'Write anything...'",
+                    "defaultValue": "'--- Choose a country ---'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 48,
+                    "line": 52,
                     "type": "string",
                     "decorators": []
                 }
             ],
             "outputsClass": [
                 {
-                    "name": "onBlur",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 57,
-                    "type": "EventEmitter"
-                },
-                {
-                    "name": "onFocus",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 54,
-                    "type": "EventEmitter"
-                },
-                {
                     "name": "onSubmit",
                     "defaultValue": "new EventEmitter<Event>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 60,
+                    "line": 78,
                     "type": "EventEmitter"
                 }
             ],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "countries",
+                    "defaultValue": "countriesData",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ICountry[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 37
+                },
+                {
+                    "name": "isFocus",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 57
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "clickItemHandler",
+                    "args": [
+                        {
+                            "name": "country",
+                            "type": "ICountry",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 59,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "country",
+                            "type": "ICountry",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onBlur",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 72,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onFocus",
+                    "args": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 67,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "e",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -842,11 +981,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\n\r\n@Component({\r\n    selector: 'lechatong-country-text',\r\n    imports: [CommonModule],\r\n    standalone: true,\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            type=\"text\"\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            maxlength=\"{{this.maxLenght}}\"\r\n            minlength=\"{{this.minLenght}}\"\r\n            [ngClass]=\"inputClasses\"\r\n            [disabled]=\"this.disabled\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"onBlur.emit($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n              ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-country.scss']\r\n})\r\nexport default class InputContryComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  maxLenght: number = 25;\r\n\r\n  @Input()\r\n  minLenght: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-country',\r\n        `lechatong-input-country--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-country--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport countriesData from \"../../common/data/countries.lechatong.json\";\r\nimport { ICountry } from \"src/stories/utils/country.lechatong\";\r\n\r\n@Component({\r\n    selector: 'lechatong-country-text',\r\n    imports: [CommonModule],\r\n    standalone: true,\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span ng-if=\"{{this.label}}\" class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n          readonly\r\n          [ngClass]=\"inputClasses\"\r\n          [disabled]=\"this.disabled\"\r\n          [placeholder]=\"this.placeHolder\"\r\n          [value]=\"this.modelValue\"\r\n          (focus)=\"isFocus = true\"\r\n          (blur)=\"isFocus = false\"\r\n          >\r\n        <span class=\"lechatong-country-menu\" [hidden]=\"!isFocus && !disabled\">\r\n          <div class=\"lechatong-country-menu-item\" *ngFor=\"let country of countries\"\r\n            (click)=\"clickItemHandler(country)\">\r\n            <img width=\"20\" height=\"20\" [src]=\"country.image\" />\r\n            <b>{{ country.name }}</b>\r\n          </div>\r\n        </span>\r\n\r\n        <span ng-if=\"{{this.message}}\" [ngClass]=\"messageClasses\">{{this.message}}</span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-country.scss']\r\n})\r\nexport default class InputCountryComponent {\r\n\r\n  countries: ICountry[] = countriesData\r\n\r\n  @Input()\r\n  label? = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: ICountry;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder? = '--- Choose a country ---';\r\n\r\n  @Input()\r\n  message? = '(*) Simple message text';\r\n\r\n  isFocus = false\r\n\r\n  clickItemHandler(country: ICountry): void {\r\n    console.log('1')\r\n    if(this.modelValue !== country){\r\n      console.log('2')\r\n      this.modelValue !== country\r\n    }\r\n  }\r\n\r\n  onFocus(e: Event): void {\r\n    console.log(this.isFocus)\r\n    this.isFocus = true\r\n  };\r\n\r\n  onBlur(e: Event): void {\r\n    console.log(this.isFocus)\r\n    this.isFocus = false\r\n  };\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-country',\r\n        `lechatong-input-country--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-country--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n    \r\n    &-label {\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-country {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 16px;\r\n        height: 20px;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n    \r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}",
+                    "data": "@import '../../scss/base.scss';\r\n\r\n.lechatong {\r\n    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\r\n\r\n    &-label {\r\n        font-weight: 700;\r\n        display: flex;\r\n        color: $lechatong-basic-01;\r\n        size: 16px;\r\n    }\r\n\r\n    &-input-country {\r\n        display: flex;\r\n        align-content: center;\r\n        size: 20px;\r\n        height: auto;\r\n        min-width: 300px;\r\n        border-radius: 5px;\r\n        border: 1px;\r\n        padding: 4px 8px;\r\n        margin: 8px 0 6px 0;\r\n        border-style: solid;\r\n        background-color: $lechatong-basic-02;\r\n\r\n        & option{\r\n          padding: 4px;\r\n        }\r\n\r\n        &--default {\r\n            border-color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            border-color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            border-color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            border-color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            border-color: $lechatong-error-secondary;\r\n        }\r\n        &--disable {\r\n            cursor: not-allowed;\r\n            background-color: $lechatong-default-secondary;\r\n        }\r\n    }\r\n\r\n    &-country-menu {\r\n      position: absolute;\r\n      box-shadow: 0px 10px 60px -5px rgba(193, 201, 214, 0.35);\r\n      // top: 48px;\r\n      border: 1px solid #d8d8d8;\r\n      border-radius: 2px;\r\n      padding-top:  0.5rem;\r\n      padding-bottom:  0.5rem;\r\n      max-height: 242px;\r\n      margin-top: -6px;\r\n      background: $lechatong-basic-00;\r\n\r\n      overflow: auto;\r\n      img {\r\n        margin-right: 8px;\r\n      }\r\n      &-item {\r\n        display: flex;\r\n        padding: 8px 16px;\r\n        font-size: 16px;\r\n        &:hover {\r\n          background: $lechatong-basic-04;\r\n          cursor: pointer;\r\n        }\r\n      }\r\n    }\r\n\r\n    &-message {\r\n        display: flex;\r\n        size: 12px;\r\n        height: 14px;\r\n\r\n        &--default {\r\n            color: $lechatong-default-primary;\r\n        }\r\n        &--success {\r\n            color: $lechatong-success-primary;\r\n        }\r\n        &--info {\r\n            color: $lechatong-info-secondary;\r\n        }\r\n        &--warning {\r\n            color: $lechatong-warning-secondary;\r\n        }\r\n        &--error {\r\n            color: $lechatong-error-secondary;\r\n        }\r\n    }\r\n}\r\n",
                     "styleUrl": "./input-country.scss"
                 }
             ],
@@ -858,7 +997,7 @@
                         "name": "inputClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 62
+                        "line": 80
                     }
                 },
                 "messageClasses": {
@@ -867,7 +1006,7 @@
                         "name": "messageClasses",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 70
+                        "line": 88
                     }
                 }
             }
@@ -1021,7 +1160,7 @@
         },
         {
             "name": "InputNumberComponent",
-            "id": "component-InputNumberComponent-aa2e26a268cffdf1e0f1cf1305d9b08867e31d17dc601689ae9d395cb249a35be9efc94cb99cfee25fe3a5a871d0d668a9c2f3d188f705f4431fbec61fd61522",
+            "id": "component-InputNumberComponent-1a1c51910f26e571942638bc27b19b469e625ce63dc5c3db6afec28c5aab534794e2f8d6b738262e7681e65e7f6074688f4468b69b7ba9e5dd9c4d112c57c85c",
             "file": "src/stories/components/lechatong-number-input/input-number.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1033,7 +1172,7 @@
                 "./input-number.scss"
             ],
             "styles": [],
-            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        Numberonly\n        placeholder=\"{{this.placeHolder}}\"\n        inputmode=\"numeric\"\n        [value]=\"this.modelValue\"\n        [ngClass]=\"inputClasses\"\n        [max]=\"max\"\n        [min]=\"min\"\n        [disabled]=\"this.disabled\"\n        (input)=\"inputHandler($event)\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"blurHandler($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n        ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <input\n        numberonly\n        placeholder=\"{{this.placeHolder}}\"\n        inputmode=\"numeric\"\n        [value]=\"this.modelValue\"\n        [ngClass]=\"inputClasses\"\n        [max]=\"max\"\n        [min]=\"min\"\n        [disabled]=\"this.disabled\"\n        (input)=\"inputHandler($event)\"\n        (focus)=\"onFocus.emit($event)\"\n        (blur)=\"blurHandler($event)\"\n        (submit)=\"onSubmit.emit($event)\" />\n        <span\n        ng-if=\"{{this.message}}\"\n          [ngClass]=\"messageClasses\">\n          {{this.message}}\n        </span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -1237,7 +1376,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from \"@angular/core\";\r\nimport { NumberonlyDirective } from \"src/stories/common/numberonly/numberonly.directive\";\r\nimport { Message } from \"src/stories/utils/message.const\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-number',\r\n    standalone: true,\r\n    hostDirectives:[NumberonlyDirective],\r\n    imports: [CommonModule],\r\n    schemas: [NO_ERRORS_SCHEMA],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            Numberonly\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            inputmode=\"numeric\"\r\n            [value]=\"this.modelValue\"\r\n            [ngClass]=\"inputClasses\"\r\n            [max]=\"max\"\r\n            [min]=\"min\"\r\n            [disabled]=\"this.disabled\"\r\n            (input)=\"inputHandler($event)\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"blurHandler($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n            ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-number.scss']\r\n})\r\nexport default class InputNumberComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max?: number = 1000\r\n\r\n  @Input()\r\n  min?: number = 0\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write a number';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  inputHandler(e: Event): void {\r\n    // let inputValue = (e.target as HTMLInputElement).value\r\n  }\r\n\r\n  blurHandler(e: Event): void {\r\n    let inputValue = parseInt((e.target as HTMLInputElement).value)\r\n    if(!inputValue){\r\n      this.defineInput('error', Message.IS_EMPTY)\r\n    }\r\n    if(this.min && inputValue < this.min){\r\n      console.log('greather')\r\n      this.defineInput('error', Message.GREATER_THAN + this.min)\r\n    }\r\n    if(this.max && inputValue > this.max){\r\n      console.log('less')\r\n      this.defineInput('error', Message.LESS_THAN + this.max)\r\n    }\r\n  }\r\n\r\n  defineInput(type: any, msg: string): void{\r\n    this.inputType = type\r\n    this.message = msg\r\n  }\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-number',\r\n        `lechatong-input-number--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-number--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from \"@angular/core\";\r\nimport { NumberonlyDirective } from \"src/stories/common/directives/numberonly/numberonly.directive\";\r\nimport { Message } from \"src/stories/utils/message.const\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-number',\r\n    standalone: true,\r\n    hostDirectives:[NumberonlyDirective],\r\n    imports: [CommonModule],\r\n    schemas: [NO_ERRORS_SCHEMA],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <input\r\n            numberonly\r\n            placeholder=\"{{this.placeHolder}}\"\r\n            inputmode=\"numeric\"\r\n            [value]=\"this.modelValue\"\r\n            [ngClass]=\"inputClasses\"\r\n            [max]=\"max\"\r\n            [min]=\"min\"\r\n            [disabled]=\"this.disabled\"\r\n            (input)=\"inputHandler($event)\"\r\n            (focus)=\"onFocus.emit($event)\"\r\n            (blur)=\"blurHandler($event)\"\r\n            (submit)=\"onSubmit.emit($event)\" />\r\n            <span\r\n            ng-if=\"{{this.message}}\"\r\n              [ngClass]=\"messageClasses\">\r\n              {{this.message}}\r\n            </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-number.scss']\r\n})\r\nexport default class InputNumberComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max?: number = 1000\r\n\r\n  @Input()\r\n  min?: number = 0\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write a number';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  inputHandler(e: Event): void {\r\n    // let inputValue = (e.target as HTMLInputElement).value\r\n  }\r\n\r\n  blurHandler(e: Event): void {\r\n    let inputValue = parseInt((e.target as HTMLInputElement).value)\r\n    if(!inputValue){\r\n      this.defineInput('error', Message.IS_EMPTY)\r\n    }\r\n    if(this.min && inputValue < this.min){\r\n      console.log('greather')\r\n      this.defineInput('error', Message.GREATER_THAN + this.min)\r\n    }\r\n    if(this.max && inputValue > this.max){\r\n      console.log('less')\r\n      this.defineInput('error', Message.LESS_THAN + this.max)\r\n    }\r\n  }\r\n\r\n  defineInput(type: any, msg: string): void{\r\n    this.inputType = type\r\n    this.message = msg\r\n  }\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-number',\r\n        `lechatong-input-number--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-number--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1416,7 +1555,7 @@
         },
         {
             "name": "InputPriceComponent",
-            "id": "component-InputPriceComponent-6963bfdd142b6b9a7aad0b3c4b7f7a30752fd3ed79bc4e726dc8eb0a77526a7fb9c69560756c3fce4432d9da6972030f48b4c50561bf7eaabf6373829e270a8b",
+            "id": "component-InputPriceComponent-6a0c16d9fc8af19e1e139d7f914ee655315931e63276059faebe43d480044ecea5b647d091646a484914079a27bfb576f661cb57d7285efca7dd0f725831e74a",
             "file": "src/stories/components/lechatong-price-input/input-price.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1428,7 +1567,7 @@
                 "./input-price.scss"
             ],
             "styles": [],
-            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <div [ngClass]=\"inputClasses\">\n      <span class=\"lechatong-money-sign\" ng-if=\"{{this.moneySign}}\">{{this.moneySign}}</span>\n      <input\n          Numberonly [allowDecimals]=\"true\"\n          [allowSign]=\"false\"\n          placeholder=\"{{this.placeHolder}}\"\n          [value]=\"this.modelValue\"\n          [disabled]=\"this.disabled\"\n          (focus)=\"onFocus.emit($event)\"\n          (blur)=\"onBlur.emit($event)\"\n          (submit)=\"onSubmit.emit($event)\" />\n      <span ng-if=\"{{this.suffix}}\">{{this.suffix}}</span>\n    </div>\n\n    <span\n      ng-if=\"{{this.message}}\"\n      [ngClass]=\"messageClasses\">\n      {{this.message}}\n    </span>\n</label>\n",
+            "template": "<label class=\"lechatong\">\n    <span class=\"lechatong-label\">{{this.label}}</span>\n    <div [ngClass]=\"inputClasses\">\n      <span class=\"lechatong-money-sign\" ng-if=\"{{this.moneySign}}\">{{this.moneySign}}</span>\n      <input\n          numberonly [allowDecimals]=\"true\"\n          [allowSign]=\"false\"\n          placeholder=\"{{this.placeHolder}}\"\n          [value]=\"this.modelValue\"\n          [disabled]=\"this.disabled\"\n          (focus)=\"onFocus.emit($event)\"\n          (blur)=\"onBlur.emit($event)\"\n          (submit)=\"onSubmit.emit($event)\" />\n      <span ng-if=\"{{this.suffix}}\">{{this.suffix}}</span>\n    </div>\n\n    <span\n      ng-if=\"{{this.message}}\"\n      [ngClass]=\"messageClasses\">\n      {{this.message}}\n    </span>\n</label>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -1558,7 +1697,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { max } from \"rxjs\";\r\nimport { NumberonlyDirective } from \"src/stories/common/numberonly/numberonly.directive\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-price',\r\n    standalone: true,\r\n    hostDirectives:[NumberonlyDirective],\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <div [ngClass]=\"inputClasses\">\r\n          <span class=\"lechatong-money-sign\" ng-if=\"{{this.moneySign}}\">{{this.moneySign}}</span>\r\n          <input\r\n              Numberonly [allowDecimals]=\"true\"\r\n              [allowSign]=\"false\"\r\n              placeholder=\"{{this.placeHolder}}\"\r\n              [value]=\"this.modelValue\"\r\n              [disabled]=\"this.disabled\"\r\n              (focus)=\"onFocus.emit($event)\"\r\n              (blur)=\"onBlur.emit($event)\"\r\n              (submit)=\"onSubmit.emit($event)\" />\r\n          <span ng-if=\"{{this.suffix}}\">{{this.suffix}}</span>\r\n        </div>\r\n\r\n        <span\r\n          ng-if=\"{{this.message}}\"\r\n          [ngClass]=\"messageClasses\">\r\n          {{this.message}}\r\n        </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-price.scss']\r\n})\r\nexport default class InputPriceComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max: number = 25;\r\n\r\n  @Input()\r\n  min: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Input()\r\n  suffix? = 'USD';\r\n\r\n  @Input()\r\n  moneySign? = '$';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-price',\r\n        `lechatong-input-price--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-price--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\r\nimport { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { max } from \"rxjs\";\r\nimport { NumberonlyDirective } from \"src/stories/common/directives/numberonly/numberonly.directive\";\r\n\r\n@Component({\r\n    selector: 'lechatong-input-price',\r\n    standalone: true,\r\n    hostDirectives:[NumberonlyDirective],\r\n    imports: [CommonModule],\r\n    template: `\r\n    <label class=\"lechatong\">\r\n        <span class=\"lechatong-label\">{{this.label}}</span>\r\n        <div [ngClass]=\"inputClasses\">\r\n          <span class=\"lechatong-money-sign\" ng-if=\"{{this.moneySign}}\">{{this.moneySign}}</span>\r\n          <input\r\n              numberonly [allowDecimals]=\"true\"\r\n              [allowSign]=\"false\"\r\n              placeholder=\"{{this.placeHolder}}\"\r\n              [value]=\"this.modelValue\"\r\n              [disabled]=\"this.disabled\"\r\n              (focus)=\"onFocus.emit($event)\"\r\n              (blur)=\"onBlur.emit($event)\"\r\n              (submit)=\"onSubmit.emit($event)\" />\r\n          <span ng-if=\"{{this.suffix}}\">{{this.suffix}}</span>\r\n        </div>\r\n\r\n        <span\r\n          ng-if=\"{{this.message}}\"\r\n          [ngClass]=\"messageClasses\">\r\n          {{this.message}}\r\n        </span>\r\n    </label>\r\n    `,\r\n    styleUrls: ['./input-price.scss']\r\n})\r\nexport default class InputPriceComponent {\r\n\r\n  @Input()\r\n  label = 'Label';\r\n\r\n  @Input()\r\n  modelValue?: number = 50\r\n\r\n  @Input()\r\n  max: number = 25;\r\n\r\n  @Input()\r\n  min: number = 0;\r\n\r\n  @Input()\r\n  disabled: boolean = false;\r\n\r\n  @Input()\r\n  inputType: 'default' | 'success' | 'info' | 'warning' | 'error' = 'default';\r\n\r\n  @Input()\r\n  placeHolder = 'Write anything...';\r\n\r\n  @Input()\r\n  message = '(*) Simple message text';\r\n\r\n  @Input()\r\n  suffix? = 'USD';\r\n\r\n  @Input()\r\n  moneySign? = '$';\r\n\r\n  @Output()\r\n  onFocus = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onBlur = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onSubmit = new EventEmitter<Event>();\r\n\r\n  public get inputClasses(): string[] {\r\n    return [\r\n        'lechatong-input-price',\r\n        `lechatong-input-price--${this.inputType}`,\r\n        this.disabled ? 'lechatong-input-price--disable' : '',\r\n    ]\r\n  }\r\n\r\n  public get messageClasses(): string[] {\r\n    return [\r\n        'lechatong-message',\r\n        `lechatong-message--${this.inputType}`,\r\n    ]\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2065,6 +2204,16 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+            },
+            {
+                "name": "Label",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/lechatong-date-input/input-date.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2075,7 +2224,7 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -2105,7 +2254,7 @@
                 "name": "Label",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -2116,16 +2265,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-            },
-            {
-                "name": "Label",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -2205,6 +2344,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CountryInput>",
+                "defaultValue": "{\r\n    title: 'Example/CountryInput',\r\n    component: CountryInput,\r\n    tags: ['autodocs'],\r\n    render: (args: CountryInput) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/components/lechatong-button/button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2225,11 +2374,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<CountryInput>",
-                "defaultValue": "{\r\n    title: 'Example/CountryInput',\r\n    component: CountryInput,\r\n    tags: ['autodocs'],\r\n    render: (args: CountryInput) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                "type": "Meta<InputPhoneNumber>",
+                "defaultValue": "{\r\n    title: 'Example/PhoneNumberInput',\r\n    component: InputPhoneNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPhoneNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
             },
             {
                 "name": "meta",
@@ -2255,11 +2404,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<InputPhoneNumber>",
-                "defaultValue": "{\r\n    title: 'Example/PhoneNumberInput',\r\n    component: InputPhoneNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPhoneNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                "type": "Meta<InputSelect>",
+                "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
             },
             {
                 "name": "meta",
@@ -2270,16 +2419,6 @@
                 "deprecationMessage": "",
                 "type": "Meta<InputText>",
                 "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<InputSelect>",
-                "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
             },
             {
                 "name": "preview",
@@ -2330,6 +2469,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<CountryInput>",
+                "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<Button>",
                 "file": "src/stories/components/lechatong-button/button.stories.ts",
                 "deprecated": false,
@@ -2352,8 +2502,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<CountryInput>",
-                "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                "rawtype": "StoryObj<InputPhoneNumber>",
+                "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -2385,8 +2535,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<InputPhoneNumber>",
-                "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                "rawtype": "StoryObj<InputSelect>",
+                "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -2398,17 +2548,6 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<InputText>",
                 "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 177
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<InputSelect>",
-                "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -2489,6 +2628,28 @@
                     "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
                 }
             ],
+            "src/stories/components/lechatong-country-input/Input-country.stories.ts": [
+                {
+                    "name": "Label",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CountryInput>",
+                    "defaultValue": "{\r\n    title: 'Example/CountryInput',\r\n    component: CountryInput,\r\n    tags: ['autodocs'],\r\n    render: (args: CountryInput) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                }
+            ],
             "src/stories/components/lechatong-date-input/input-date.stories.ts": [
                 {
                     "name": "Label",
@@ -2511,12 +2672,12 @@
                     "defaultValue": "{\r\n    title: 'Example/DateInput',\r\n    component: InputDate,\r\n    tags: ['autodocs'],\r\n    render: (args: InputDate) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
-            "src/stories/components/lechatong-country-input/Input-country.stories.ts": [
+            "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts": [
                 {
                     "name": "Label",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                    "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
@@ -2526,11 +2687,11 @@
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                    "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<CountryInput>",
-                    "defaultValue": "{\r\n    title: 'Example/CountryInput',\r\n    component: CountryInput,\r\n    tags: ['autodocs'],\r\n    render: (args: CountryInput) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                    "type": "Meta<InputPhoneNumber>",
+                    "defaultValue": "{\r\n    title: 'Example/PhoneNumberInput',\r\n    component: InputPhoneNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPhoneNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
             "src/stories/components/lechatong-number-input/input-number.stories.ts": [
@@ -2577,12 +2738,12 @@
                     "defaultValue": "{\r\n    title: 'Example/PriceInput',\r\n    component: InputPrice,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPrice) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
-            "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts": [
+            "src/stories/components/lechatong-select-input/input-select.stories.ts": [
                 {
                     "name": "Label",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                    "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
@@ -2592,11 +2753,11 @@
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                    "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<InputPhoneNumber>",
-                    "defaultValue": "{\r\n    title: 'Example/PhoneNumberInput',\r\n    component: InputPhoneNumber,\r\n    tags: ['autodocs'],\r\n    render: (args: InputPhoneNumber) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
+                    "type": "Meta<InputSelect>",
+                    "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
             "src/stories/components/lechatong-text-input/input-text.stories.ts": [
@@ -2619,28 +2780,6 @@
                     "deprecationMessage": "",
                     "type": "Meta<InputText>",
                     "defaultValue": "{\r\n    title: 'Example/TextInput',\r\n    component: InputText,\r\n    tags: ['autodocs'],\r\n    render: (args: InputText) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
-                }
-            ],
-            "src/stories/components/lechatong-select-input/input-select.stories.ts": [
-                {
-                    "name": "Label",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      label: 'Label'\r\n    }\r\n  }"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<InputSelect>",
-                    "defaultValue": "{\r\n    title: 'Example/SelectInput',\r\n    component: InputSelect,\r\n    tags: ['autodocs'],\r\n    render: (args: InputSelect) => ({\r\n        props: {\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes:{},\r\n}"
                 }
             ],
             "src/stories/Header.stories.ts": [
@@ -2781,6 +2920,19 @@
                     "kind": 177
                 }
             ],
+            "src/stories/components/lechatong-country-input/Input-country.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<CountryInput>",
+                    "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
             "src/stories/components/lechatong-button/button.stories.ts": [
                 {
                     "name": "Story",
@@ -2807,13 +2959,13 @@
                     "kind": 177
                 }
             ],
-            "src/stories/components/lechatong-country-input/Input-country.stories.ts": [
+            "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<CountryInput>",
-                    "file": "src/stories/components/lechatong-country-input/Input-country.stories.ts",
+                    "rawtype": "StoryObj<InputPhoneNumber>",
+                    "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -2846,13 +2998,13 @@
                     "kind": 177
                 }
             ],
-            "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts": [
+            "src/stories/components/lechatong-select-input/input-select.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<InputPhoneNumber>",
-                    "file": "src/stories/components/lechatong-phone-number-input/input-phone-number.stories.ts",
+                    "rawtype": "StoryObj<InputSelect>",
+                    "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -2866,19 +3018,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<InputText>",
                     "file": "src/stories/components/lechatong-text-input/input-text.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
-            "src/stories/components/lechatong-select-input/input-select.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<InputSelect>",
-                    "file": "src/stories/components/lechatong-select-input/input-select.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -2994,7 +3133,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/stories/common/numberonly/numberonly.directive.ts",
+                "filePath": "src/stories/common/directives/numberonly/numberonly.directive.ts",
                 "type": "directive",
                 "linktype": "directive",
                 "name": "NumberonlyDirective",
@@ -3075,9 +3214,9 @@
                 "filePath": "src/stories/components/lechatong-country-input/input-country.component.ts",
                 "type": "component",
                 "linktype": "component",
-                "name": "InputContryComponent",
+                "name": "InputCountryComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/13",
                 "status": "low"
             },
             {
@@ -3270,6 +3409,15 @@
                 "name": "PageComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/utils/country.lechatong.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ICountry",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
                 "status": "low"
             }
         ]

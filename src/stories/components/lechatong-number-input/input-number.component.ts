@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from "@angular/core";
-import { NumberonlyDirective } from "src/stories/common/numberonly/numberonly.directive";
+import { NumberonlyDirective } from "src/stories/common/directives/numberonly/numberonly.directive";
 import { Message } from "src/stories/utils/message.const";
 
 @Component({
@@ -13,7 +13,7 @@ import { Message } from "src/stories/utils/message.const";
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <input
-            Numberonly
+            numberonly
             placeholder="{{this.placeHolder}}"
             inputmode="numeric"
             [value]="this.modelValue"
