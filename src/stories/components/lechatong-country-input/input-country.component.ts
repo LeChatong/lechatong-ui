@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from "@angular/core";
 import countriesData from "../../common/data/countries.lechatong.json";
 import { ICountry } from "src/stories/utils/country.lechatong";
 
@@ -7,6 +7,7 @@ import { ICountry } from "src/stories/utils/country.lechatong";
     selector: 'lechatong-country-text',
     imports: [CommonModule],
     standalone: true,
+    schemas: [NO_ERRORS_SCHEMA],
     template: `
     <label class="lechatong">
         <span ng-if="{{this.label}}" class="lechatong-label">{{this.label}}</span>
@@ -15,11 +16,9 @@ import { ICountry } from "src/stories/utils/country.lechatong";
           [ngClass]="inputClasses"
           [disabled]="this.disabled"
           [placeholder]="this.placeHolder"
-          [value]="this.modelValue"
-          (focus)="isFocus = true"
-          (blur)="isFocus = false"
+          (click)="onClick($event)"
           >
-        <span class="lechatong-country-menu" [hidden]="!isFocus && !disabled">
+        <span class="lechatong-country-menu" [hidden]="!isFocus">
           <div class="lechatong-country-menu-item" *ngFor="let country of countries"
             (click)="clickItemHandler(country)">
             <img width="20" height="20" [src]="country.image" />
@@ -60,7 +59,7 @@ export default class InputCountryComponent {
     console.log('1')
     if(this.modelValue !== country){
       console.log('2')
-      this.modelValue !== country
+      this.modelValue = country
     }
   }
 
@@ -73,6 +72,10 @@ export default class InputCountryComponent {
     console.log(this.isFocus)
     this.isFocus = false
   };
+
+  onClick(e: Event){
+    this.isFocus = (this.isFocus) ? false : true
+  }
 
   @Output()
   onSubmit = new EventEmitter<Event>();
