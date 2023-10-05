@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from "@angular/core";
-import countriesData from "../../common/data/countries.lechatong.json";
+import { countriesData } from '../../common/data/countries.lechatong';
 import { ICountry } from "src/stories/utils/country.lechatong";
 
 @Component({
@@ -9,25 +9,45 @@ import { ICountry } from "src/stories/utils/country.lechatong";
     standalone: true,
     schemas: [NO_ERRORS_SCHEMA],
     template: `
-    <label class="lechatong">
+    <div class="lechatong">
         <span ng-if="{{this.label}}" class="lechatong-label">{{this.label}}</span>
         <input
           readonly
-          [ngClass]="inputClasses"
-          [disabled]="this.disabled"
-          [placeholder]="this.placeHolder"
-          (click)="onClick($event)"
-          >
-        <span class="lechatong-country-menu" [hidden]="!isFocus">
-          <div class="lechatong-country-menu-item" *ngFor="let country of countries"
-            (click)="clickItemHandler(country)">
-            <img width="20" height="20" [src]="country.image" />
-            <b>{{ country.name }}</b>
-          </div>
-        </span>
+          class="lechatong-country-bloc-input"
+          placeholder="{{this.placeHolder}}"
+          [value]="this.selectValue"
+          (click)="showCountryList()"
+          (blur)="onBlur($event)"
+        >
+        <!-- <span class="lechatong-country-bloc">
+          <span class="lechatong-country-bloc-input">
 
+            <span ng-if="{{this.selectValue}}" class="lechatong-country-bloc-input-value">{{ selectValue }}</span>
+            <span ng-if="{{!this.selectValue}}" class="lechatong-country-bloc-placeholder">{{this.placeHolder}}</span>
+            <svg
+              class="lechatong-country-bloc-input-arrow-top"
+              width="14"
+              height="8"
+              viewbox="0 0 14 8"
+              fill="none"
+              xmlns="http:/www.w3.org/2000/svg"
+            >
+              <path
+                stroke="#007D8F"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+            </svg>
+          </span>
+        </span> -->
+        <span class="lechatong-country-bloc-menu" [hidden]="!isFocus">
+          <span *ngFor="let country of countries">
+            <span class="lechatong-country-bloc-menu-item">{{country.name}}</span>
+          </span>
+        </span>
         <span ng-if="{{this.message}}" [ngClass]="messageClasses">{{this.message}}</span>
-    </label>
+    </div>
     `,
     styleUrls: ['./input-country.scss']
 })
@@ -55,12 +75,14 @@ export default class InputCountryComponent {
 
   isFocus = false
 
-  clickItemHandler(country: ICountry): void {
+  selectValue: any = null
+
+  clickItemHandler(): void {
     console.log('1')
-    if(this.modelValue !== country){
-      console.log('2')
-      this.modelValue = country
-    }
+    // if(this.modelValue !== country){
+    //   console.log('2')
+    //   this.modelValue = country
+    // }
   }
 
   onFocus(e: Event): void {
@@ -73,8 +95,9 @@ export default class InputCountryComponent {
     this.isFocus = false
   };
 
-  onClick(e: Event){
-    this.isFocus = (this.isFocus) ? false : true
+  showCountryList(){
+    console.log(this.isFocus)
+    if(this.isFocus){this.isFocus = false}else{this.isFocus = true}
   }
 
   @Output()

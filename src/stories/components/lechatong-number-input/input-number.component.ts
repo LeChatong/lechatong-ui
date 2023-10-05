@@ -10,7 +10,7 @@ import { Message } from "src/stories/utils/message.const";
     imports: [CommonModule],
     schemas: [NO_ERRORS_SCHEMA],
     template: `
-    <label class="lechatong">
+    <div class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <input
             numberonly
@@ -30,7 +30,7 @@ import { Message } from "src/stories/utils/message.const";
               [ngClass]="messageClasses">
               {{this.message}}
             </span>
-    </label>
+  </div>
     `,
     styleUrls: ['./input-number.scss']
 })

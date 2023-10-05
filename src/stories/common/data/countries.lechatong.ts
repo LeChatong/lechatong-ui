@@ -1,4 +1,4 @@
-[
+export const countriesData = [
   {
     "name": "Ascension Island",
     "code": "AC",

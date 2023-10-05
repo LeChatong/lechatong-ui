@@ -10,46 +10,46 @@
         size: 16px;
     }
 
-    &-input-country {
-        display: flex;
-        align-content: center;
-        size: 20px;
-        height: auto;
-        min-width: 300px;
-        border-radius: 5px;
-        border: 1px;
-        padding: 4px 8px;
-        margin: 8px 0 6px 0;
-        border-style: solid;
-        background-color: $lechatong-basic-02;
-        cursor: pointer;
+    &-country-bloc-input {
+      display: flex;
+      align-content: center;
+      size: 16px;
+      height: 20px;
+      min-width: 300px;
+      border-radius: 5px;
+      border: 1px;
+      padding: 4px 8px;
+      margin: 8px 0 6px 0;
+      border-style: solid;
+      background-color: $lechatong-basic-02;
+      cursor: pointer;
 
-        & option{
-          padding: 4px;
-        }
+      & option{
+        padding: 4px;
+      }
 
-        &--default {
-            border-color: $lechatong-default-primary;
-        }
-        &--success {
-            border-color: $lechatong-success-primary;
-        }
-        &--info {
-            border-color: $lechatong-info-secondary;
-        }
-        &--warning {
-            border-color: $lechatong-warning-secondary;
-        }
-        &--error {
-            border-color: $lechatong-error-secondary;
-        }
-        &--disable {
-            cursor: not-allowed;
-            background-color: $lechatong-default-secondary;
-        }
+      &--default {
+          border-color: $lechatong-default-primary;
+      }
+      &--success {
+          border-color: $lechatong-success-primary;
+      }
+      &--info {
+          border-color: $lechatong-info-secondary;
+      }
+      &--warning {
+          border-color: $lechatong-warning-secondary;
+      }
+      &--error {
+          border-color: $lechatong-error-secondary;
+      }
+      &--disable {
+          cursor: not-allowed;
+          background-color: $lechatong-default-secondary;
+      }
     }
 
-    &-country-menu {
+    &-country-bloc-menu {
       position: absolute;
       box-shadow: 0px 10px 60px -5px rgba(193, 201, 214, 0.35);
       // top: 48px;
@@ -67,6 +67,7 @@
       }
       &-item {
         display: flex;
+        position: relative;
         padding: 8px 16px;
         font-size: 16px;
         &:hover {
