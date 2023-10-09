@@ -1,61 +1,66 @@
 @import '../../scss/base.scss';
 
-.lechatong-button {
+.lechatong {
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  border: 0;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  line-height: 1;
-  color: $lechatong-basic-02;
-}
-.lechatong-button--type--default {
-  background-color: $lechatong-default-primary;
-  &:hover, :active {
-    background-color: $lechatong-default-secondary;
-    color: $lechatong-basic-01 !important; 
+  margin: 5px 5px 5px 5px;
+
+  &-button {
+
+    font-weight: 700;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+    color: $lechatong-basic-02;
   }
-}
-.lechatong-button--type--info {
-  background-color: $lechatong-info-primary;
-  &:hover {
-    background-color: $lechatong-info-secondary;
+  &-button--type--default {
+    background-color: $lechatong-default-primary;
+    &:hover, :active {
+      background-color: $lechatong-default-secondary;
+      color: $lechatong-basic-01 !important;
+    }
   }
-}
-.lechatong-button--type--success {
-  background-color: $lechatong-success-primary;
-  &:hover {
-    background-color: $lechatong-success-secondary;
+  &-button--type--info {
+    background-color: $lechatong-info-primary;
+    &:hover {
+      background-color: $lechatong-info-secondary;
+    }
   }
-}
-.lechatong-button--type--warning {
-  background-color: $lechatong-warning-primary;
-  &:hover {
-    background-color: $lechatong-warning-secondary;
+  &-button--type--success {
+    background-color: $lechatong-success-primary;
+    &:hover {
+      background-color: $lechatong-success-secondary;
+    }
   }
-}
-.lechatong-button--type--error {
-  background-color: $lechatong-error-primary;
-  &:hover {
-    background-color: $lechatong-error-secondary;
+  &-button--type--warning {
+    background-color: $lechatong-warning-primary;
+    &:hover {
+      background-color: $lechatong-warning-secondary;
+    }
   }
-}
-.lechatong-button--disable {
-  background-color: $lechatong-basic-03;
-  color: $lechatong-basic-01;
-  // box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-  cursor: not-allowed;
-}
-.lechatong-button--size--small {
-  font-size: $lechatong-buttong-small;
-  padding: 10px 16px;
-}
-.lechatong-button--size--medium {
-  font-size: $lechatong-buttong-medium;
-  padding: 11px 20px;
-}
-.lechatong-button--size--large {
-  font-size: $lechatong-buttong-large;
-  padding: 12px 24px;
+  &-button--type--error {
+    background-color: $lechatong-error-primary;
+    &:hover {
+      background-color: $lechatong-error-secondary;
+    }
+  }
+  &-button--disable {
+    background-color: $lechatong-basic-03;
+    color: $lechatong-basic-01;
+    // box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+    cursor: not-allowed;
+  }
+  &-button--size--small {
+    font-size: $lechatong-buttong-small;
+    padding: 10px 16px;
+  }
+  &-button--size--medium {
+    font-size: $lechatong-buttong-medium;
+    padding: 11px 20px;
+  }
+  &-button--size--large {
+    font-size: $lechatong-buttong-large;
+    padding: 12px 24px;
+  }
 }

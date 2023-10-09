@@ -1,19 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Component, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, Output, EventEmitter, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'lechatong-button',
   imports: [CommonModule, FontAwesomeModule],
-  template: ` <button
-    type="button"
-    (click)="onClick.emit($event)"
-    [ngClass]="classes"
-  >
-    <fa-icon [icon]="IconDefinition" /> {{ label }}
-  </button>`,
+  standalone: true,
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+  template: `
+  <div class="lechatong">
+    <button
+      type="button"
+      (click)="onClick.emit($event)"
+      [ngClass]="classes"
+    >
+      {{ label }}
+    </button>
+  </div>
+  `,
   styleUrls: ['./button.scss'],
 })
 export default class ButtonComponent {
@@ -58,8 +64,8 @@ export default class ButtonComponent {
 
   public get classes(): string[] {
     return [
-      'lechatong-button', 
-      `lechatong-button--size--${this.size}`, 
+      'lechatong-button',
+      `lechatong-button--size--${this.size}`,
       this.disabled ? 'lechatong-button--disable' : `lechatong-button--type--${this.buttonType}`,
     ];
   }

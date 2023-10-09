@@ -1,32 +1,38 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from "@angular/core";
 
 @Component({
     selector: 'lechatong-input-text',
     imports: [CommonModule],
+    standalone: true,
+    schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     template: `
-    <label class="lechatong">
-        <span class="lechatong-label">{{this.label}}</span>
-        <input
-            type="text"
-            placeholder="{{this.placeHolder}}"
-            [maxlength]="maxLenght"
-            [minlength]="minLenght"
-            [ngClass]="inputClasses"
-            [disabled]="this.disabled"
-            (focus)="onFocus.emit($event)"
-            (blur)="onBlur.emit($event)"
-            (submit)="onSubmit.emit($event)" />
-            <span
-              ng-if="{{this.message}}"
-              [ngClass]="messageClasses">
-              {{this.message}}
-            </span>
-    </label>
+    <div class="lechatong">
+      <span class="lechatong-label">{{this.label}}</span>
+      <input
+          type="text"
+          placeholder="{{this.placeHolder}}"
+          [value]="this.modelValue"
+          [maxlength]="maxLenght"
+          [minlength]="minLenght"
+          [ngClass]="inputClasses"
+          [disabled]="this.disabled"
+          (focus)="onFocus.emit($event)"
+          (blur)="onBlur.emit($event)"
+          (submit)="onSubmit.emit($event)" />
+          <span
+            ng-if="{{this.message}}"
+            [ngClass]="messageClasses">
+            {{this.message}}
+          </span>
+    </div>
     `,
     styleUrls: ['./input-text.scss']
 })
 export default class InputTextComponent {
+
+  @Input()
+  modelValue?: string = ''
 
   @Input()
   label = 'Label';

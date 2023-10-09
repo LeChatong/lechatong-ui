@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import ButtonComponent from '../stories/components/lechatong-button/button.component'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'lechatongui';
+  title = 'lechatongui'
+
+  data = {
+    text: ''
+  }
+
+  onSubmit(){
+    alert(this.data.text)
+  }
+
 }
