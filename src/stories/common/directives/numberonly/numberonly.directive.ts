@@ -4,10 +4,10 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
   selector: '[numberonly]',
   standalone: true
 })
-export class NumberonlyDirective {
+export class NumberOnlyDirective {
 
-  @Input() allowDecimals: boolean = true;
-  @Input() allowSign: boolean = true;
+  @Input() allowDecimals = true;
+  @Input() allowSign = true;
   @Input() decimalSeparator: string = '.';
   @Input() twoNumberAfterDecimal = false;
 

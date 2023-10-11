@@ -323,13 +323,18 @@
           <div class="form-group mt-3">
             <lechatong-input-text
               [label]="'Name'"
+              [disabled]="inputTextDisable"
+              [message]="inputTextMessage"
+              [showMessage]="inputTextShowMessage"
+              [inputType]="inputTextType"
               [modelValue]="data.text"
+              (onChange)="onChange($event)"
             ></lechatong-input-text>
           </div>
           <div class="text-center">
             <lechatong-button
               [size]="'medium'"
-              [buttonType]="'default'"
+              [buttonType]="'success'"
               [disabled]="false"
               [label]="'Submit'"
               (onClick)="onSubmit()"

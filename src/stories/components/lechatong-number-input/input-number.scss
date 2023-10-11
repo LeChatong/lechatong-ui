@@ -2,7 +2,8 @@
 
 .lechatong {
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    
+    margin: 5px 5px 5px 5px;
+
     &-label {
         font-weight: 700;
         display: flex;
@@ -17,12 +18,11 @@
         height: 20px;
         min-width: 300px;
         border-radius: 5px;
-        border: 1px;
+        border: 1px solid;
         padding: 4px 8px;
         margin: 8px 0 6px 0;
-        border-style: solid;
         background-color: $lechatong-basic-02;
-    
+
         &--default {
             border-color: $lechatong-default-primary;
         }

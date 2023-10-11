@@ -1,32 +1,36 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from "@angular/core";
-import { NumberonlyDirective } from "src/stories/common/directives/numberonly/numberonly.directive";
+import { NumberOnlyDirective } from "src/stories/common/directives/numberonly/numberonly.directive";
 import { Message } from "src/stories/utils/message.const";
 
 @Component({
     selector: 'lechatong-input-number',
     standalone: true,
-    hostDirectives:[NumberonlyDirective],
-    imports: [CommonModule],
+    hostDirectives:[NumberOnlyDirective],
+    imports: [CommonModule, NumberOnlyDirective],
     schemas: [NO_ERRORS_SCHEMA],
     template: `
     <div class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>
         <input
             numberonly
+            [allowDecimals]="this.allowDecimals"
+            [allowSign]="this.allowSign"
+            [decimalSeparator]="this.decimalSeparator"
+            [twoNumberAfterDecimal]="this.twoNumberAfterDecimal"
             placeholder="{{this.placeHolder}}"
-            inputmode="numeric"
             [value]="this.modelValue"
             [ngClass]="inputClasses"
-            [max]="max"
-            [min]="min"
             [disabled]="this.disabled"
-            (input)="inputHandler($event)"
+            (input)="onInput.emit($event)"
+            (change)="onChange.emit($event)"
+            (blur)="onBlur.emit($event)"
+            (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
-            (blur)="blurHandler($event)"
-            (submit)="onSubmit.emit($event)" />
+            (submit)="onSubmit.emit($event)"
+        />
             <span
-            ng-if="{{this.message}}"
+              *ngIf="this.showMessage"
               [ngClass]="messageClasses">
               {{this.message}}
             </span>
@@ -40,13 +44,7 @@ export default class InputNumberComponent {
   label = 'Label';
 
   @Input()
-  modelValue?: number = 50
-
-  @Input()
-  max?: number = 1000
-
-  @Input()
-  min?: number = 0
+  modelValue: string = ''
 
   @Input()
   disabled: boolean = false;
@@ -60,35 +58,38 @@ export default class InputNumberComponent {
   @Input()
   message = '(*) Simple message text';
 
+  @Input()
+  showMessage = false
+
+  @Input()
+  allowDecimals = true;
+
+  @Input()
+  allowSign = true;
+
+  @Input()
+  decimalSeparator: '.' | ',' = '.';
+
+  @Input()
+  twoNumberAfterDecimal = false;
+
   @Output()
   onFocus = new EventEmitter<Event>();
 
   @Output()
+  onChange = new EventEmitter<Event>();
+
+  @Output()
   onSubmit = new EventEmitter<Event>();
 
-  inputHandler(e: Event): void {
-    // let inputValue = (e.target as HTMLInputElement).value
-  }
+  @Output()
+  onInput= new EventEmitter<Event>();
 
-  blurHandler(e: Event): void {
-    let inputValue = parseInt((e.target as HTMLInputElement).value)
-    if(!inputValue){
-      this.defineInput('error', Message.IS_EMPTY)
-    }
-    if(this.min && inputValue < this.min){
-      console.log('greather')
-      this.defineInput('error', Message.GREATER_THAN + this.min)
-    }
-    if(this.max && inputValue > this.max){
-      console.log('less')
-      this.defineInput('error', Message.LESS_THAN + this.max)
-    }
-  }
+  @Output()
+  onBlur= new EventEmitter<Event>();
 
-  defineInput(type: any, msg: string): void{
-    this.inputType = type
-    this.message = msg
-  }
+  @Output()
+  onClick = new EventEmitter<Event>();
 
   public get inputClasses(): string[] {
     return [

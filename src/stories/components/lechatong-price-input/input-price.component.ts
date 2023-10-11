@@ -1,13 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { max } from "rxjs";
-import { NumberonlyDirective } from "src/stories/common/directives/numberonly/numberonly.directive";
+import { NumberOnlyDirective } from "src/stories/common/directives/numberonly/numberonly.directive";
 
 @Component({
     selector: 'lechatong-input-price',
     standalone: true,
-    hostDirectives:[NumberonlyDirective],
-    imports: [CommonModule],
+    hostDirectives:[NumberOnlyDirective],
+  imports: [CommonModule, NumberOnlyDirective],
     template: `
     <label class="lechatong">
         <span class="lechatong-label">{{this.label}}</span>

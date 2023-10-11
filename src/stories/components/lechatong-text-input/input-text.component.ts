@@ -13,15 +13,17 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, Input, NO_ERRORS_SCHEM
           type="text"
           placeholder="{{this.placeHolder}}"
           [value]="this.modelValue"
-          [maxlength]="maxLenght"
-          [minlength]="minLenght"
           [ngClass]="inputClasses"
           [disabled]="this.disabled"
-          (focus)="onFocus.emit($event)"
+          (input)="onInput.emit($event)"
+          (change)="onChange.emit($event)"
           (blur)="onBlur.emit($event)"
-          (submit)="onSubmit.emit($event)" />
+          (click)="onClick.emit($event)"
+          (focus)="onFocus.emit($event)"
+          (submit)="onSubmit.emit($event)"
+      />
           <span
-            ng-if="{{this.message}}"
+            *ngIf="this.showMessage"
             [ngClass]="messageClasses">
             {{this.message}}
           </span>
@@ -38,12 +40,6 @@ export default class InputTextComponent {
   label = 'Label';
 
   @Input()
-  maxLenght: number = 25;
-
-  @Input()
-  minLenght: number = 0;
-
-  @Input()
   disabled: boolean = false;
 
   @Input()
@@ -55,6 +51,15 @@ export default class InputTextComponent {
   @Input()
   message = '(*) Simple message text';
 
+  @Input()
+  showMessage = false
+
+  @Output()
+  onInput = new EventEmitter<Event>();
+
+  @Output()
+  onChange = new EventEmitter<Event>();
+
   @Output()
   onFocus = new EventEmitter<Event>();
 
@@ -62,7 +67,10 @@ export default class InputTextComponent {
   onBlur = new EventEmitter<Event>();
 
   @Output()
-  onSubmit = new EventEmitter<Event>();
+  onClick = new EventEmitter<Event>();
+
+  @Output()
+  onSubmit= new EventEmitter<Event>();
 
   public get inputClasses(): string[] {
     return [
