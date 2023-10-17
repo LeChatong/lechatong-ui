@@ -16,7 +16,7 @@ import { Message } from "src/stories/utils/message.const";
             numberonly
             [allowDecimals]="this.allowDecimals"
             [allowSign]="this.allowSign"
-            [decimalSeparator]="this.decimalSeparator"
+            [decimalSeparator]="this.separatorDecimal"
             [twoNumberAfterDecimal]="this.twoNumberAfterDecimal"
             placeholder="{{this.placeHolder}}"
             [value]="this.modelValue"
@@ -68,7 +68,7 @@ export default class InputNumberComponent {
   allowSign = true;
 
   @Input()
-  decimalSeparator: '.' | ',' = '.';
+  separatorDecimal: '.' | ',' = '.';
 
   @Input()
   twoNumberAfterDecimal = false;

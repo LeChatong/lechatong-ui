@@ -8,16 +8,20 @@ export class NumberOnlyDirective {
 
   @Input() allowDecimals = true;
   @Input() allowSign = true;
-  @Input() decimalSeparator: string = '.';
+  @Input() decimalSeparator:  '.' | ',' = ',';
   @Input() twoNumberAfterDecimal = false;
 
   //  Regular expressions
   integerUnsigned: string = '^[0-9]*$';
   integerSigned: string = '^-?[0-9]+$';
-  decimalUnsigned: string = '^[0-9]+(.[0-9]+)?$';
-  decimalSigned: string = '^-?[0-9]+(.[0-9]+)?$';
+  decimalUnsigned: string = '^[0-9]+([.,][0-9]+)?$';
+  decimalSigned: string = '^-?[0-9]+([.,][0-9]+)?$';
 
   previousValue: string = '';
+
+  numberOfClicks = 0;
+
+  SEPARATOR = this.decimalSeparator
 
   /**
      * Class constructor
@@ -30,9 +34,13 @@ export class NumberOnlyDirective {
    * @param e
    */
   @HostListener('change', ['$event']) onChange(e: any) {
-    this.validateValue((e.target as HTMLInputElement).value);
+    let value = (e.target as HTMLInputElement).value
+    //clean more 2 digits after decimal separator
+    if(this.twoNumberAfterDecimal) {
+      value = value.substring(0, value.indexOf(this.decimalSeparator) + 3)
+    }
+    this.validateValue(value);
   }
-
 
   /**
    * Event handler for host's keydown event
@@ -61,8 +69,10 @@ export class NumberOnlyDirective {
             allowedKeys.push('.');
         else
             allowedKeys.push(',');
-    }
 
+        e.stopImmediatePropagation();
+    }
+    //console.log(e.key)
     // when minus sign is allowed, add its
     // key to allowed key only when the
     // cursor is in the first position, and
@@ -102,7 +112,6 @@ export class NumberOnlyDirective {
    * @param value
    */
   validateValue(value: string): void {
-
     // choose the appropiate regular expression
     let regex: string = '';
     if (!this.allowDecimals && !this.allowSign) regex = this.integerUnsigned;
