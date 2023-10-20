@@ -7,30 +7,43 @@ import { NumberOnlyDirective } from "src/stories/common/directives/numberonly/nu
     selector: 'lechatong-input-price',
     standalone: true,
     hostDirectives:[NumberOnlyDirective],
-  imports: [CommonModule, NumberOnlyDirective],
+    imports: [CommonModule, NumberOnlyDirective],
     template: `
-    <label class="lechatong">
-        <span class="lechatong-label">{{this.label}}</span>
-        <div [ngClass]="inputClasses">
-          <span class="lechatong-money-sign" ng-if="{{this.moneySign}}">{{this.moneySign}}</span>
-          <input
-              numberonly [allowDecimals]="true"
-              [allowSign]="false"
+        <div class="lechatong">
+          <span class="lechatong-label">{{this.label}}</span>
+          <div class="lechatong-bloc-price">
+            <input
+              numberonly
+              [allowDecimals]="this.allowDecimals"
+              [allowSign]="this.allowSign"
+              [decimalSeparator]="this.separatorDecimal"
+              [twoNumberAfterDecimal]="this.twoNumberAfterDecimal"
               placeholder="{{this.placeHolder}}"
+              [ngClass]="inputClasses"
+              class="lechatong-input-price-text"
               [value]="this.modelValue"
               [disabled]="this.disabled"
-              (focus)="onFocus.emit($event)"
+              (input)="onInput.emit($event)"
+              (change)="onChange.emit($event)"
               (blur)="onBlur.emit($event)"
-              (submit)="onSubmit.emit($event)" />
-          <span ng-if="{{this.suffix}}">{{this.suffix}}</span>
-        </div>
+              (click)="onClick.emit($event)"
+              (focus)="onFocus.emit($event)"
+              (submit)="onSubmit.emit($event)"
+            />
+            <span [ngClass]="suffixClasses">
+              {{this.suffix}}
+            </span>
+          </div>
 
-        <span
-          ng-if="{{this.message}}"
-          [ngClass]="messageClasses">
-          {{this.message}}
-        </span>
-    </label>
+          <span [ngClass]="inputClasses">
+
+          </span>
+          <span
+            *ngIf="this.showMessage"
+            [ngClass]="messageClasses">
+              {{this.message}}
+          </span>
+        </div>
     `,
     styleUrls: ['./input-price.scss']
 })
@@ -40,13 +53,7 @@ export default class InputPriceComponent {
   label = 'Label';
 
   @Input()
-  modelValue?: number = 50
-
-  @Input()
-  max: number = 25;
-
-  @Input()
-  min: number = 0;
+  modelValue?: string = ''
 
   @Input()
   disabled: boolean = false;
@@ -64,22 +71,50 @@ export default class InputPriceComponent {
   suffix? = 'USD';
 
   @Input()
-  moneySign? = '$';
+  showMessage = false
+
+  @Input()
+  allowDecimals = true;
+
+  @Input()
+  allowSign = true;
+
+  @Input()
+  separatorDecimal: '.' | ',' = '.';
+
+  @Input()
+  twoNumberAfterDecimal = false;
 
   @Output()
   onFocus = new EventEmitter<Event>();
 
   @Output()
-  onBlur = new EventEmitter<Event>();
+  onChange = new EventEmitter<Event>();
 
   @Output()
   onSubmit = new EventEmitter<Event>();
+
+  @Output()
+  onInput= new EventEmitter<Event>();
+
+  @Output()
+  onBlur= new EventEmitter<Event>();
+
+  @Output()
+  onClick = new EventEmitter<Event>();
 
   public get inputClasses(): string[] {
     return [
         'lechatong-input-price',
         `lechatong-input-price--${this.inputType}`,
         this.disabled ? 'lechatong-input-price--disable' : '',
+    ]
+  }
+
+  public get suffixClasses(): string[] {
+    return [
+      'lechatong-price-suffix',
+      `lechatong-price-suffix--${this.inputType}`,
     ]
   }
 

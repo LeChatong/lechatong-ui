@@ -29,11 +29,11 @@ import { Message } from "src/stories/utils/message.const";
             (focus)="onFocus.emit($event)"
             (submit)="onSubmit.emit($event)"
         />
-            <span
-              *ngIf="this.showMessage"
-              [ngClass]="messageClasses">
-              {{this.message}}
-            </span>
+        <span
+          *ngIf="this.showMessage"
+          [ngClass]="messageClasses">
+          {{this.message}}
+        </span>
   </div>
     `,
     styleUrls: ['./input-number.scss']

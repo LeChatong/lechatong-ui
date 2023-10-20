@@ -2,51 +2,92 @@
 
 .lechatong {
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 5px 5px 5px 5px;
+    width: 100%;
 
     &-label {
         font-weight: 700;
         display: flex;
         color: $lechatong-basic-01;
-        size: 16px;
+        font-size: 16px;
+    }
+
+    &-bloc-price {
+      display: inline-flex;
+      align-items: center;
     }
 
     &-input-price {
-        display: inline-block;
-        align-content: center;
-        size: 16px;
-        height: 20px;
-        min-width: 300px;
-        border-radius: 5px;
-        border: 1px;
-        padding: 4px 8px;
-        margin: 8px 0 6px 0;
-        border-style: solid;
-        background-color: $lechatong-basic-02;
+      display: flex;
+      align-content: center;
+      text-align: right;
+      font-size: 16px;
+      height: 20px;
+      min-width: 300px;
+      border-radius: 5px 0 0 5px;
+      border-top: 1px solid;
+      border-left: 1px solid;
+      border-bottom: 1px solid;
+      border-right: 0;
+      padding: 4px 8px;
+      margin: 8px 0 6px 0;
+      background-color: $lechatong-basic-02;
+      position: relative;
+      justify-content: center;
+      align-items: center;
 
-        &--default {
-            border-color: $lechatong-default-primary;
-        }
-        &--success {
-            border-color: $lechatong-success-primary;
-        }
-        &--info {
-            border-color: $lechatong-info-secondary;
-        }
-        &--warning {
-            border-color: $lechatong-warning-secondary;
-        }
-        &--error {
-            border-color: $lechatong-error-secondary;
-        }
-        &--disable {
-            cursor: not-allowed;
-            background-color: $lechatong-default-secondary;
-        }
+      &--default {
+          border-color: $lechatong-default-primary;
+      }
+      &--success {
+          border-color: $lechatong-success-primary;
+      }
+      &--info {
+          border-color: $lechatong-info-secondary;
+      }
+      &--warning {
+          border-color: $lechatong-warning-secondary;
+      }
+      &--error {
+          border-color: $lechatong-error-secondary;
+      }
+      &--disable {
+          cursor: not-allowed;
+          background-color: $lechatong-default-secondary;
+      }
     }
 
-    &-money-sign {
-      margin-right: 16px;
-      size: 12px;
+    &-price-suffix {
+      font-size: 16px;
+      height: 20px;
+      border-radius: 0 5px 5px 0;
+      border-top: 1px solid;
+      border-left: 0;
+      border-bottom: 1px solid;
+      border-right: 1px solid;
+      padding: 4px 8px;
+      margin: 8px 0 6px 0;
+      background-color: $lechatong-basic-02;
+
+      &--default {
+        border-color: $lechatong-default-primary;
+      }
+      &--success {
+        border-color: $lechatong-success-primary;
+      }
+      &--info {
+        border-color: $lechatong-info-secondary;
+      }
+      &--warning {
+        border-color: $lechatong-warning-secondary;
+      }
+      &--error {
+        border-color: $lechatong-error-secondary;
+      }
+      &--disable {
+        cursor: not-allowed;
+        background-color: $lechatong-default-secondary;
+      }
     }
 
     &-message {

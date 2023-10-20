@@ -1,8 +1,9 @@
-import { NumberonlyDirective } from './numberonly.directive';
+import { NumberOnlyDirective } from './numberonly.directive';
 
 describe('NumberonlyDirective', () => {
   it('should create an instance', () => {
-    const directive = new NumberonlyDirective();
+    // @ts-ignore
+    const directive = new NumberOnlyDirective();
     expect(directive).toBeTruthy();
   });
 });
